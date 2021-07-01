@@ -106,15 +106,27 @@ void r_encuestas()
                     scanf("%d", &jefe.edad);
                     printf("Tiene pareja (s o n): ");
                     scanf("%c", &jefe.pareja);
-                    if (jefe.pareja != 's' || jefe.pareja != 'n')
+                    do
                     {
-                        printf("Debe de introducir s o n");
-                        fflush(stdin);
-                        scanf("%c", &jefe.pareja);
-                    }
+                        if (jefe.pareja != 's' || jefe.pareja != 'n')
+                        {
+                            printf("Debe de introducir s o n");
+                            fflush(stdin);
+                            scanf("%c", &jefe.pareja);
+                        }
+                    } while (jefe.pareja != 's' || jefe.pareja != 'n');
+                    
                     printf("¿Cuál es su genero? (M o F): ");
-
-                    scanf("%c", &);
+                    do
+                    {
+                        scanf("%c", &jefe.sexo);
+                        if (jefe.sexo != 'm' || jefe.sexo != 'f')
+                        {
+                            printf("Debe de introducir M o F");
+                            fflush(stdin);
+                            scanf("%c", &jefe.sexo);
+                        }
+                    } while (jefe.sexo != 'm' || jefe.sexo != 'f');
 
                     scanf("", &);
 
