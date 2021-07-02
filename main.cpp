@@ -1,6 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
+#include <math.h>
 
 #define TRUE 1
 #define FALSE 0
@@ -9,7 +11,7 @@ int torres[2][10][6] = {}; // Array Inicializado
 
 struct Jefe
 {
-    double cedula;
+    float cedula;
     int edad;
     char sexo, pareja;
 };
@@ -27,6 +29,7 @@ struct Habitabilidad
 };
 
 // Inicialización de funciones
+void menu();
 void r_encuestas();
 void reportes();
 void v_completa();
@@ -35,6 +38,7 @@ void relacion_porcentaje();
 void casos();
 void valor_modal();
 void estadistica();
+int digitos(float value);
 
 int main(int argc, char const *argv[])
 {
@@ -52,18 +56,19 @@ void menu()
         do
         {
             system("clear||cls");
-            printf("Elija el tipo de cambio que desee hacer: \n");
+            printf("Administración del Conjunto Residencial: \n");
             printf("\t1- Realizar encuestas.\n");
             printf("\t2- Reportes\n");
             printf("\t3- Salir.\n");
 
-            printf("Seleccione una opción: ");
+            printf("\tSeleccione una opción: ");
             scanf("%d", &menu);
-        } while (menu < 1 || menu > 3);
+        } while (menu < 1 && menu > 3);
 
         switch (menu)
         {
         case 1:
+            system("clear||cls");
             r_encuestas();
             break;
 
@@ -78,12 +83,12 @@ void menu()
 
 void r_encuestas()
 {
-
+    int count;
     printf("Censo Residencial\n\n");
 
-    Child child;
-    Jefe jefe;
-    Habitabilidad habitabilidad;
+    struct Child child;
+    struct Jefe jefe;
+    struct Habitabilidad habitabilidad;
 
     FILE *archivo = fopen("Conjunto_Residencial.dat", "wb");
 
@@ -95,42 +100,42 @@ void r_encuestas()
         {
             for (int j = 0; j < 10; j++)
             {
+                system("clear||cls");
                 for (int z = 0; z < 6; z++)
                 {
                     printf("Introducir información de la Torre %d, Piso: %d, Apartamento: %d\n", i + 1, j + 1, z + 1);
 
-                    printf("Datos del jefe de familia: \n");
-                    printf("Cédula: ");
-                    scanf("%d", &jefe.cedula);
-                    printf("Edad: ");
+                    printf("\t\nDatos del jefe de familia: \n");
+                    printf("\tCédula: V-");
+                    scanf("%f", &jefe.cedula);
+                    do
+                    {
+                        count = digitos(jefe.cedula);
+                        if (count < 7 || count > 7)
+                        {
+                            printf("\tFormato de la cédula incorrecta, por favor intente de nuevo: ", count);
+                            scanf("%f", &jefe.cedula);
+                        }
+                    } while (count != 7);
+
+                    printf("\tEdad: ");
                     scanf("%d", &jefe.edad);
-                    printf("Tiene pareja (s o n): ");
-                    scanf("%c", &jefe.pareja);
-                    do
+
+                    printf("\tTiene pareja (s/n): ");
+                    scanf(" %c", &jefe.pareja);
+                    while (jefe.pareja != 's' && jefe.pareja != 'n')
                     {
-                        if (jefe.pareja != 's' || jefe.pareja != 'n')
-                        {
-                            printf("Debe de introducir s o n");
-                            fflush(stdin);
-                            scanf("%c", &jefe.pareja);
-                        }
-                    } while (jefe.pareja != 's' || jefe.pareja != 'n');
-                    
-                    printf("¿Cuál es su genero? (M o F): ");
-                    do
+                        printf("\tDebe de introducir (s/n): ");
+                        scanf("%c", &jefe.pareja);
+                    }
+
+                    printf("\t¿Cuál es su genero? (m/f): ");
+                    scanf(" %c", &jefe.sexo);
+                    while (jefe.sexo != 'm' && jefe.sexo != 'f')
                     {
+                        printf("\tDebe de introducir (m/f): ");
                         scanf("%c", &jefe.sexo);
-                        if (jefe.sexo != 'm' || jefe.sexo != 'f')
-                        {
-                            printf("Debe de introducir M o F");
-                            fflush(stdin);
-                            scanf("%c", &jefe.sexo);
-                        }
-                    } while (jefe.sexo != 'm' || jefe.sexo != 'f');
-
-                    scanf("", &);
-
-                    scanf("", &);
+                    }
                 }
             }
         }
@@ -158,7 +163,7 @@ void reportes()
 
             printf("Seleccione una opción: ");
             scanf("%d", &menu);
-        } while (menu < 1 || menu > 8);
+        } while (menu < 1 && menu > 8);
 
         switch (menu)
         {
@@ -208,4 +213,9 @@ void valor_modal()
 
 void estadistica()
 {
+}
+
+int digitos(float value)
+{
+    return (log10(value) + 1);
 }
