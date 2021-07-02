@@ -7,6 +7,13 @@
 #define TRUE 1
 #define FALSE 0
 
+// Vocales con acentos
+char a = 160;
+char e = 130;
+char i = 161;
+char o = 162;
+char u = 163;
+
 int torres[2][10][6] = {}; // Array Inicializado
 
 struct Jefe
@@ -56,12 +63,12 @@ void menu()
         do
         {
             system("clear||cls");
-            printf("Administración del Conjunto Residencial: \n");
+            printf("Administraci%cn del Conjunto Residencial: \n", o);
             printf("\t1- Realizar encuestas.\n");
             printf("\t2- Reportes\n");
             printf("\t3- Salir.\n");
 
-            printf("\tSeleccione una opción: ");
+            printf("\tSeleccione una opci%cn: ", o);
             scanf("%d", &menu);
         } while (menu < 1 && menu > 3);
 
@@ -90,7 +97,7 @@ void r_encuestas()
     struct Jefe jefe;
     struct Habitabilidad habitabilidad;
 
-    FILE *archivo = fopen("Conjunto_Residencial.dat", "wb");
+    FILE *archivo = fopen("Conjunto_Residencial.dat", "w");
 
     if (archivo != NULL)
     {
@@ -103,17 +110,18 @@ void r_encuestas()
                 system("clear||cls");
                 for (int z = 0; z < 6; z++)
                 {
-                    printf("Introducir información de la Torre %d, Piso: %d, Apartamento: %d\n", i + 1, j + 1, z + 1);
+                    system("clear||cls");
+                    printf("Introducir informaci%cn de la Torre %d, Piso: %d, Apartamento: %d\n", o, i + 1, j + 1, z + 1);
 
                     printf("\t\nDatos del jefe de familia: \n");
-                    printf("\tCédula: V-");
+                    printf("\tC%cdula: V-", e);
                     scanf("%f", &jefe.cedula);
                     do
                     {
                         count = digitos(jefe.cedula);
                         if (count < 7 || count > 7)
                         {
-                            printf("\tFormato de la cédula incorrecta, por favor intente de nuevo: ", count);
+                            printf("\tFormato de la c%cdula incorrecta, por favor intente de nuevo: ", e);
                             scanf("%f", &jefe.cedula);
                         }
                     } while (count != 7);
@@ -121,7 +129,7 @@ void r_encuestas()
                     printf("\tEdad: ");
                     scanf("%d", &jefe.edad);
 
-                    printf("\tTiene pareja (s/n): ");
+                    printf("\t¿Tiene pareja (s/n)? ");
                     scanf(" %c", &jefe.pareja);
                     while (jefe.pareja != 's' && jefe.pareja != 'n')
                     {
@@ -129,7 +137,7 @@ void r_encuestas()
                         scanf("%c", &jefe.pareja);
                     }
 
-                    printf("\t¿Cuál es su genero? (m/f): ");
+                    printf("\t¿Cu%cl es su genero? (m/f): ", a);
                     scanf(" %c", &jefe.sexo);
                     while (jefe.sexo != 'm' && jefe.sexo != 'f')
                     {
@@ -152,16 +160,16 @@ void reportes()
         {
             system("clear||cls");
             printf("Elija el tipo de cambio que desee hacer: \n");
-            printf("\t1- Visualizar información completa de un apartamento.\n");
-            printf("\t2- Buscar información de jefe de familia.\n");
-            printf("\t3- Relación porcentual de genero.\n");
+            printf("\t1- Visualizar informaci%cn completa de un apartamento.\n");
+            printf("\t2- Buscar informaci%cn de jefe de familia.\n", o);
+            printf("\t3- Relaci%cn porcentual de genero.\n", o);
             printf("\t4- Casos especiales.\n");
             printf("\t5- Valor modal.\n");
-            printf("\t6- Estadística de habitabilidad.\n");
-            printf("\t7- Menú anterior.\n");
+            printf("\t6- Estad�stica de habitabilidad.\n");
+            printf("\t7- Men� anterior.\n");
             printf("\t8- Salir.\n");
 
-            printf("Seleccione una opción: ");
+            printf("Seleccione una opci%cn: ", o);
             scanf("%d", &menu);
         } while (menu < 1 && menu > 8);
 
