@@ -13,10 +13,13 @@ char e = 130;
 char i = 161;
 char o = 162;
 char u = 163;
+char elle = 164; // Imprime la ñ.
+char inte = 424; // Aunque cree overflow, mostrará el simbolo ?.
 
 //Variables Globales
-int torres[2][10][6] = {};                        // Array Inicializado
+int torres[2][10][6] = {};                        // Array Inicializado. (Simular torre).
 const int size_tt = sizeof(torres) / sizeof(int); // Logintud del array guardado en una variable constante.
+int apartamentos[size_tt];                        // Para úbicar el apartamento.
 
 struct Jefe // Se crea la estructura del jefe.
 {
@@ -34,13 +37,14 @@ struct Nino // Se crea la estructura de los niños.
 struct Habitabilidad // Se crea la estructura de la habitabilidad de los apartamentos.
 {
     int ocupado[size_tt];
-    char estado[3][10] = {"Alquilado", "Propio", "Tercero"};
+    int estado[size_tt][1];
 };
 
 // Inicialización de funciones
 void menu();
 void censo_jefe();
 void ninos_apartamento();
+void habitabilidad();
 
 void r_encuestas();
 void reportes();
@@ -71,25 +75,27 @@ void menu()
         do
         {
             system("clear||cls"); // Limpia pantalla
-            printf("Administración del Conjunto Residencial: \n");
+            printf("Administraci%cn del Conjunto Residencial: \n", o);
             printf("\t1- Realizar encuestas.\n");
             printf("\t2- Reportes\n");
             printf("\t3- Salir.\n");
 
-            printf("\tSeleccione una opción: ");
+            printf("\tSeleccione una opci%cn: ", o);
             scanf("%d", &menu);         // Aceptamos una entrada del usuario.
         } while (menu < 1 && menu > 3); // Se valida el menu para que el usuario no introduzca una opción diferente a la que queremos.
 
         switch (menu)
         {
         case 1:
+            // Censo
             system("clear||cls");
-            r_encuestas(); // llamamos a la función.
+            censo_jefe(); // llamamos a la función.
             ninos_apartamento();
-
+            habitabilidad();
             break;
 
         case 2:
+            // Reportes
             reportes();
             break;
         case 3:
@@ -97,14 +103,6 @@ void menu()
             break;
         }
     } while (menu != 3);
-}
-
-void r_encuestas() // Función que realizara el censo.
-{
-    printf("Censo Residencial\n\n");
-    censo_jefe();
-
-    struct Habitabilidad habitabilidad;
 }
 
 void reportes()
@@ -117,13 +115,13 @@ void reportes()
         {
             system("clear||cls");
             printf("Elija el tipo de cambio que desee hacer: \n");
-            printf("\t1- Visualizar información completa de un apartamento.\n");
+            printf("\t1- Visualizar informaci%cn completa de un apartamento.\n", o);
             printf("\t2- Buscar informaci%cn del jefe de familia.\n", o);
             printf("\t3- Relaci%cn porcentual de genero.\n", o);
             printf("\t4- Casos especiales.\n");
             printf("\t5- Valor modal.\n");
-            printf("\t6- Estad�stica de habitabilidad.\n");
-            printf("\t7- Men� anterior.\n");
+            printf("\t6- Estad%cstica de habitabilidad.\n", i);
+            printf("\t7- Men%c anterior.\n", u);
             printf("\t8- Salir.\n");
 
             printf("Seleccione una opci%cn: ", o);
@@ -171,9 +169,10 @@ float alea_num(float min, float max)
 
 void censo_jefe()
 {
+
     struct Jefe jefe;
     int dec, counts = 0;
-
+    printf("Censo Residencial\n\n");
     for (int i = 0; i < 2; i++)
     {
         for (int j = 0; j < 10; j++)
@@ -181,13 +180,14 @@ void censo_jefe()
             for (int z = 0; z < 6; z++)
             {
                 system("clear||cls"); // Limpia pantalla
-                printf("Introducir información de la Torre %d, Piso: %d, Apartamento: %d\n", i + 1, j + 1, z + 1);
+                printf("Informaci%cn de la Torre %d, Piso: %d, Apartamento: %d\n", o, i + 1, j + 1, z + 1);
 
                 // Encuesta Cedula ===START===
                 printf("\t\nDatos del jefe de familia: \n");
                 jefe.cedula[counts] = alea_num(0000000, 9999999);
                 printf("\tCédula: V-%.0f\n", jefe.cedula[counts]);
 
+                // printf("\tCédula: V-%.0f");
                 // scanf("%f", &jefe.cedula[counts]);
                 // do // Validar datos cuando el usuario lo ingresa.
                 // {
@@ -198,12 +198,12 @@ void censo_jefe()
                 //         scanf("%f", &jefe.cedula[counts]);
                 //     }
                 // } while (count != 7);
-
                 // Encuesta Cedula ===END===
 
                 // Encuesta Edad ===START===
                 jefe.edad[counts] = alea_num(20, 80);
                 printf("\tEdad: %d\n", jefe.edad[counts]);
+                // printf("\tEdad: ",);
                 //scanf("%d", &jefe.edad[counts]);
                 // Encuesta Edad ===END===
 
@@ -219,13 +219,13 @@ void censo_jefe()
                 }
                 printf("\t¿Tiene pareja (s/n)? %c\n", jefe.pareja[counts]);
 
+                // printf("\t¿Tiene pareja (s/n)? ");
                 // scanf(" %c", &jefe.pareja[counts]);
                 // while (jefe.pareja != 's' && jefe.pareja != 'n')
                 // {
                 //     printf("\tDebe de introducir (s/n): ");
                 //     scanf("%c", &jefe.pareja);
                 // }
-
                 // Encuesta Pareja ===END===
 
                 // Encuesta Genero ===START===
@@ -241,15 +241,14 @@ void censo_jefe()
                 }
                 printf("\t¿Cuál es su genero? (m/f): %c\n", jefe.sexo[counts]);
 
+                // printf("\t¿Cuál es su genero? (m/f): \n");
                 // scanf(" %c", &jefe.sexo);
                 // while (jefe.sexo != 'm' && jefe.sexo != 'f')
                 // {
                 //     printf("\tDebe de introducir (m/f): ");
                 //     scanf("%c", &jefe.sexo);
                 // }
-
                 // Encuesta Pareja ===END===
-                // system("sleep 0.5s");
                 counts++;
             }
         }
@@ -260,7 +259,7 @@ void ninos_apartamento()
 {
     struct Nino nino;
     int dec, counts, cantidad;
-
+    system("clear||cls"); // Limpia pantalla
     printf("\t\nDatos de los niños: \n");
     for (int i = 0; i < 2; i++)
     {
@@ -268,19 +267,19 @@ void ninos_apartamento()
         {
             for (int z = 0; z < 6; z++)
             {
-                system("clear||cls"); // Limpia pantalla
-                printf("Introducir información de la Torre %d, Piso: %d, Apartamento: %d\n", i + 1, j + 1, z + 1);
+                printf("Informaci%cn de la Torre %d, Piso: %d, Apartamento: %d\n", o, i + 1, j + 1, z + 1);
 
                 cantidad = alea_num(0, 5);
-                printf("Cuantos niños hay en el apartamento: %d", cantidad);
+                printf("Cuantos niños hay en el apartamento: %d\n", cantidad);
+                // printf("Cuantos niños hay en el apartamento: ");
                 // scanf("%d", &cantidad);
+
                 for (int a = 0; a < cantidad; a++)
                 {
-                    /* code */
-
                     // Encuesta Edad ===START===
                     nino.edad[counts][a] = alea_num(0, 17);
-                    printf("\n\tEdad: %d\n", nino.edad[counts][a]);
+                    printf("\n\tEdad: %d años\n", nino.edad[counts][a]);
+                    // printf("\n\tEdad: \n");
                     //scanf("%d", &jefe.edad[counts]);
 
                     // Encuesta Edad ===END===
@@ -298,7 +297,53 @@ void ninos_apartamento()
                     printf("\t¿Cuál es su genero? (m/f): %c\n", nino.sexo[counts][a]);
                     system("sleep 0.5s");
                 }
+                counts++;
+                system("clear||cls"); // Limpia pantalla
+            }
+            system("clear||cls"); // Limpia pantalla
+        }
+    }
+}
+
+void habitabilidad()
+{
+    struct Habitabilidad habitabilidad;
+    int counts = 0, estado;
+    system("clear||cls"); // Limpia pantalla
+    printf("Datos de los apartamentos: \n");
+    for (int i = 0; i < 2; i++)
+    {
+        for (int j = 0; j < 10; j++)
+        {
+            for (int z = 0; z < 6; z++)
+            {
+                printf("Informaci%cn de la Torre %d, Piso: %d, Apartamento: %d\n", o, i + 1, j + 1, z + 1);
+
+                habitabilidad.estado[counts][1] = alea_num(1, 3);
+                printf("\nEl apartamento es: ");
+
+                if (habitabilidad.estado[counts][1] == 1)
+                {
+                    printf("Alquilado.\n");
+                }
+                else if (habitabilidad.estado[counts][1] == 2)
+                {
+                    printf("Propio.\n");
+                }
+                else if (habitabilidad.estado[counts][1] == 3)
+                {
+                    printf("Familiar o Tercero.\n");
+                }
+
+                // printf("El apartamento es: ");
+                // scanf("%d", &habitabilidad.estado[counts][1]);
+                // printf("1. Alquilado.");
+                // printf("2. Propio.");
+                // printf("3. Familiar o Tercero.");
+
                 system("sleep 0.5s");
+                system("clear||cls"); // Limpia pantalla
+
                 counts++;
             }
         }
@@ -307,6 +352,7 @@ void ninos_apartamento()
 
 void v_completa()
 {
+    
 }
 
 void buscar_jefe()
