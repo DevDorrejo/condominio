@@ -17,8 +17,8 @@ char elle = 164; // Imprime la ñ.
 char inte = 424; // Aunque cree overflow, mostrará el simbolo ?.
 
 //Variables Globales
-int torres[2][10][6] = {};                        // Array Inicializado. (Simular torre).
-const int size_tt = sizeof(torres) / sizeof(int); // Logintud del array guardado en una variable constante.
+int torres[2][10][6] = {};                              // Array Inicializado. (Simular torre).
+const int size_tt = (sizeof(torres) / sizeof(int)) + 1; // Logintud del array guardado en una variable constante.
 
 struct Jefe // Se crea la estructura del jefe.
 {
@@ -29,15 +29,13 @@ struct Jefe // Se crea la estructura del jefe.
 
 struct Nino // Se crea la estructura de los niños.
 {
-    int edad[size_tt][5];
+    int edad[size_tt][5], cantidad[size_tt];
     char sexo[size_tt][5];
-    int cantidad[size_tt];
 };
 
 struct Habitabilidad // Se crea la estructura de la habitabilidad de los apartamentos.
 {
-    int ocupado[size_tt];
-    int estado[size_tt][1];
+    int ocupado[size_tt], estado[size_tt];
 };
 
 // Declaración global de los structs.
@@ -70,22 +68,22 @@ int main()
 
 void menu()
 {
-    int menu;
     do
     {
+        int opcion;
         do
         {
             system("clear||cls"); // Limpia pantalla
             printf("Administraci%cn del Conjunto Residencial: \n", o);
             printf("\t1- Realizar encuestas.\n");
-            printf("\t2- Reportes\n");
+            printf("\t2- Reportes.\n");
             printf("\t3- Salir.\n");
 
             printf("\tSeleccione una opci%cn: ", o);
-            scanf("%d", &menu);         // Aceptamos una entrada del usuario.
-        } while (menu < 1 && menu > 3); // Se valida el menu para que el usuario no introduzca una opción diferente a la que queremos.
+            scanf("%d", &opcion);           // Aceptamos una entrada del usuario.
+        } while (opcion < 1 && opcion > 3); // Se valida el menu para que el usuario no introduzca una opción diferente a la que queremos.
 
-        switch (menu)
+        switch (opcion)
         {
         case 1:
             // Censo
@@ -101,12 +99,12 @@ void menu()
             exit(0); // functión para cerrar el programa.
             break;
         }
-    } while (menu != 3);
+    } while (1);
 }
 
 void reportes()
 {
-    int menu;
+    int opcion;
     do
     {
         system("clear||cls");
@@ -124,10 +122,10 @@ void reportes()
             printf("\t8- Salir.\n");
 
             printf("Seleccione una opci%cn: ", o);
-            scanf("%d", &menu);
-        } while (menu < 1 && menu > 8);
+            scanf("%d", &opcion);
+        } while (opcion < 1 && opcion > 8);
 
-        switch (menu)
+        switch (opcion)
         {
         case 1:
             v_completa();
@@ -169,32 +167,46 @@ float alea_num(float min, float max)
 void censo()
 {
 
-    int dec, counts = 0, count;
+    int dec, counts = 1, count;
     char otro;
-
-    for (int i = 0; i < 2; i++)
+    for (int q = 1; q <= size_tt; q++)
     {
-        for (int j = 0; j < 10; j++)
+        do
         {
-            for (int z = 0; z < 6; z++)
+            if (jefe.cedula[q] == NULL || jefe.cedula[q] == 0)
+            {
+                break;
+            }
+            else
+            {
+                counts++;
+            }
+        } while (jefe.cedula[q] == NULL);
+    }
+
+    for (int i = 1; i <= 2; i++)
+    {
+        for (int j = 1; j <= 10; j++)
+        {
+            for (int z = 1; z <= 6; z++)
             {
                 system("clear||cls"); // Limpia pantalla
                 printf("Censo Residencial\n\n");
 
-                printf("Informaci%cn de la Torre %d, Piso: %d, Apartamento: %d\n", o, i + 1, j + 1, z + 1);
+                printf("Informaci%cn de la Torre %d, Piso: %d, Apartamento: %d\n", o, i, j, z);
 
                 // Encuesta Cedula ===START===
                 printf("\n\tDatos del jefe de familia: \n");
 
-                printf("\t\tCédula: V-");
+                printf("\t\tC%cdula: V-", e);
                 scanf("%f", &jefe.cedula[counts]);
                 do // Validar datos cuando el usuario lo ingresa.
                 {
                     count = digits(jefe.cedula[counts]);
                     if (count < 7 || count > 7)
                     {
-                        printf("\tFormato de la cédula incorrecta, por favor intente de nuevo: ");
-                        printf("Presiona ENTER para continuar.");
+                        printf("\tFormato de la c%cdula incorrecta, por favor intente de nuevo.", e);
+                        printf("\nPresiona ENTER para continuar.");
                         while (getchar() != '\n') // limpiar stdin
                             ;
                         getchar();
@@ -299,7 +311,7 @@ void censo()
                 }
 
                 // Estado el apartamento
-
+                fflush(stdin);
                 printf("\n\tDatos del apartamento: \n");
                 do
                 {
@@ -308,9 +320,9 @@ void censo()
                     printf("\n\t\t\t2. Propio.");
                     printf("\n\t\t\t3. Familiar o Tercero.");
                     printf("\n\t\t\tOpci%cn: ", o);
-                    scanf("%d", &habitabilidad.estado[counts][1]);
+                    scanf("%d", &habitabilidad.estado[counts]);
 
-                    if (habitabilidad.estado[counts][1] > 3)
+                    if (habitabilidad.estado[counts] > 3)
                     {
                         printf("\tDebe de introducir un valor v&clido 1, 2 o 3.", a);
                         printf("Presiona ENTER para continuar.");
@@ -318,16 +330,18 @@ void censo()
                             ;
                         getchar();
                     }
-                } while (habitabilidad.estado[counts][1] > 1 && habitabilidad.estado[counts][1] < 3);
+                } while (habitabilidad.estado[counts] < 1 || habitabilidad.estado[counts] > 3);
 
                 do
                 {
-                    printf("El apartamento esta: ");
-                    printf("\n\t\t1. Ocupado.");
-                    printf("\n\t\t2. Desocupado.");
+                    printf("\t\tEl apartamento esta: ");
+                    printf("\n\t\t\t1. Ocupado.");
+                    printf("\n\t\t\t2. Desocupado.");
+                    printf("\n\t\t\tOpci%cn: ", o);
                     scanf("%d", &habitabilidad.ocupado[counts]);
+                    printf("counts %d, %d", counts, habitabilidad.ocupado[counts]);
 
-                    if (habitabilidad.estado[counts][1] > 3)
+                    if (habitabilidad.ocupado[counts] > 2)
                     {
                         printf("\tDebe de introducir un valor v&clido 1 o 2.", a);
                         printf("Presiona ENTER para continuar.");
@@ -365,7 +379,7 @@ void v_completa()
         printf("Torre: ");
         scanf("%d", &t);
 
-        if (t > 2)
+        if (t < 1 || t > 2)
         {
 
             printf("El número de torre es inv%clido, solo hay 2 torres.", a);
@@ -374,7 +388,7 @@ void v_completa()
                 ;
             getchar();
         }
-    } while (t > 2);
+    } while (t > 1 && t < 2);
 
     do
     {
@@ -408,12 +422,12 @@ void v_completa()
         }
     } while (ap > 6);
 
-    index = t * p * ap; // La pocisión de indice para los arrays que contiene los datos.
+    // La pocisión de indice para los arrays que contiene los datos.
     system("clear||cls");
     printf("La inforamción solicitada es la siguiente: \n\n");
 
-    printf("\tEl apartamento #: %d, del piso: %d, de la torre: %d\n", ap, p, t);
-
+    printf("\tEl apartamento #%d, del piso: %d, de la torre: %d\n", ap, p, t);
+    index = t * p * ap;
     if (habitabilidad.ocupado[index] == 0)
     {
         printf("\t\tEstá desocupado");
@@ -427,15 +441,15 @@ void v_completa()
     {
         printf("\tEst%c ocupado y es ", a);
 
-        if (habitabilidad.estado[index][1] == 1)
+        if (habitabilidad.estado[index] == 1)
         {
             printf("alquilado.\n");
         }
-        else if (habitabilidad.estado[index][1] == 2)
+        else if (habitabilidad.estado[index] == 2)
         {
             printf("propio.\n");
         }
-        else if (habitabilidad.estado[index][1] == 3)
+        else if (habitabilidad.estado[index] == 3)
         {
             printf("de un familiar o tercero.\n");
         }
@@ -452,8 +466,9 @@ void v_completa()
         else
         {
             printf("\tInfantes: %d\n", nino.cantidad[index]);
-            for (size_t i = 0; i < nino.cantidad[index]; i++)
+            for (int i = 0; i < nino.cantidad[index]; i++)
             {
+                printf("\t\tInfante #%d", i);
                 printf("\t\tEdad: %d, Sexo: %c", nino.edad[index][i], nino.sexo[index][i]);
             }
         }
