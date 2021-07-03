@@ -19,7 +19,6 @@ char inte = 424; // Aunque cree overflow, mostrará el simbolo ?.
 //Variables Globales
 int torres[2][10][6] = {};                        // Array Inicializado. (Simular torre).
 const int size_tt = sizeof(torres) / sizeof(int); // Logintud del array guardado en una variable constante.
-int apartamentos[size_tt];                        // Para úbicar el apartamento.
 
 struct Jefe // Se crea la estructura del jefe.
 {
@@ -32,6 +31,7 @@ struct Nino // Se crea la estructura de los niños.
 {
     int edad[size_tt][5];
     char sexo[size_tt][5];
+    int cantidad[size_tt];
 };
 
 struct Habitabilidad // Se crea la estructura de la habitabilidad de los apartamentos.
@@ -40,11 +40,16 @@ struct Habitabilidad // Se crea la estructura de la habitabilidad de los apartam
     int estado[size_tt][1];
 };
 
+// Declaración global de los structs.
+struct Nino nino;
+struct Jefe jefe;
+struct Habitabilidad habitabilidad;
+
 // Inicialización de funciones
 void menu();
 void censo_jefe();
 void ninos_apartamento();
-void habitabilidad();
+void habita();
 
 void r_encuestas();
 void reportes();
@@ -59,7 +64,6 @@ int digits(float value);
 
 int main()
 {
-    setlocale(LC_ALL, "");
     system("clear||cls");
     printf("Censo Residencial\n\n");
     menu();
@@ -71,7 +75,6 @@ void menu()
     int menu;
     do
     {
-
         do
         {
             system("clear||cls"); // Limpia pantalla
@@ -91,7 +94,7 @@ void menu()
             system("clear||cls");
             censo_jefe(); // llamamos a la función.
             ninos_apartamento();
-            habitabilidad();
+            habita();
             break;
 
         case 2:
@@ -170,9 +173,7 @@ float alea_num(float min, float max)
 void censo_jefe()
 {
 
-    struct Jefe jefe;
     int dec, counts = 0;
-    printf("Censo Residencial\n\n");
     for (int i = 0; i < 2; i++)
     {
         for (int j = 0; j < 10; j++)
@@ -180,6 +181,8 @@ void censo_jefe()
             for (int z = 0; z < 6; z++)
             {
                 system("clear||cls"); // Limpia pantalla
+                printf("Censo Residencial\n\n");
+
                 printf("Informaci%cn de la Torre %d, Piso: %d, Apartamento: %d\n", o, i + 1, j + 1, z + 1);
 
                 // Encuesta Cedula ===START===
@@ -257,24 +260,23 @@ void censo_jefe()
 
 void ninos_apartamento()
 {
-    struct Nino nino;
-    int dec, counts, cantidad;
-    system("clear||cls"); // Limpia pantalla
-    printf("\t\nDatos de los niños: \n");
+    int dec, counts = 0;
     for (int i = 0; i < 2; i++)
     {
         for (int j = 0; j < 10; j++)
         {
             for (int z = 0; z < 6; z++)
             {
+                system("clear||cls"); // Limpia pantalla
+                printf("Datos de los niños: \n");
                 printf("Informaci%cn de la Torre %d, Piso: %d, Apartamento: %d\n", o, i + 1, j + 1, z + 1);
 
-                cantidad = alea_num(0, 5);
-                printf("Cuantos niños hay en el apartamento: %d\n", cantidad);
+                nino.cantidad[counts] = alea_num(0, 5);
+                printf("Cuantos niños hay en el apartamento: %d\n", nino.cantidad[counts]);
                 // printf("Cuantos niños hay en el apartamento: ");
                 // scanf("%d", &cantidad);
 
-                for (int a = 0; a < cantidad; a++)
+                for (int a = 0; a < nino.cantidad[counts]; a++)
                 {
                     // Encuesta Edad ===START===
                     nino.edad[counts][a] = alea_num(0, 17);
@@ -284,7 +286,6 @@ void ninos_apartamento()
 
                     // Encuesta Edad ===END===
 
-                    dec = 0;
                     dec = alea_num(0, 1);
                     if (dec == 1)
                     {
@@ -295,7 +296,6 @@ void ninos_apartamento()
                         nino.sexo[counts][a] = 'f';
                     }
                     printf("\t¿Cuál es su genero? (m/f): %c\n", nino.sexo[counts][a]);
-                    system("sleep 0.5s");
                 }
                 counts++;
                 system("clear||cls"); // Limpia pantalla
@@ -305,9 +305,8 @@ void ninos_apartamento()
     }
 }
 
-void habitabilidad()
+void habita()
 {
-    struct Habitabilidad habitabilidad;
     int counts = 0, estado;
     system("clear||cls"); // Limpia pantalla
     printf("Datos de los apartamentos: \n");
@@ -319,6 +318,17 @@ void habitabilidad()
             {
                 printf("Informaci%cn de la Torre %d, Piso: %d, Apartamento: %d\n", o, i + 1, j + 1, z + 1);
 
+                estado = alea_num(0, 1);
+                if (estado == 1)
+                {
+                    printf("El apartamento esta ocupado.");
+                    habitabilidad.ocupado[counts] = 1;
+                }
+                else
+                {
+                    printf("El apartamento esta desocupado.");
+                    habitabilidad.ocupado[counts] = 0;
+                }
                 habitabilidad.estado[counts][1] = alea_num(1, 3);
                 printf("\nEl apartamento es: ");
 
@@ -341,9 +351,7 @@ void habitabilidad()
                 // printf("2. Propio.");
                 // printf("3. Familiar o Tercero.");
 
-                system("sleep 0.5s");
                 system("clear||cls"); // Limpia pantalla
-
                 counts++;
             }
         }
@@ -352,7 +360,105 @@ void habitabilidad()
 
 void v_completa()
 {
-    
+    int t, p, ap, index;
+    printf("Introduzca la inforamci%cn del apatarmento que desea buscar: \n", o);
+
+    do
+    {
+        printf("Torre: ");
+        scanf("%d", &t);
+
+        if (t > 2)
+        {
+
+            printf("El número de torre es inv%clido, solo hay 2 torres.", a);
+            printf("Presiona ENTER para continuar.");
+            while (getchar() != '\n') // limpiar stdin
+                ;
+            getchar();
+        }
+    } while (t > 2);
+
+    do
+    {
+        printf("Piso: ");
+        scanf("%d", &p);
+
+        if (p > 10)
+        {
+
+            printf("El número de piso es inv%clido, solo hay 10 pisos.", a);
+            printf("Presiona ENTER para continuar.");
+            while (getchar() != '\n') // limpiar stdin
+                ;
+            getchar();
+        }
+    } while (t > 10);
+
+    do
+    {
+        printf("Apartamento: ");
+        scanf("%d", &ap);
+
+        if (ap > 6)
+        {
+
+            printf("El número de piso es inv%clido, solo hay 6 pisos.", a);
+            printf("Presiona ENTER para continuar.");
+            while (getchar() != '\n') // limpiar stdin
+                ;
+            getchar();
+        }
+    } while (ap > 6);
+
+    index = t * p * ap; // La pocisión de indice para los arrays que contiene los datos.
+    system("clear||cls");
+
+    printf("\nEl apartamento #: %d, del piso: %d, de la torre: %d\n", ap, p, t);
+
+    if (habitabilidad.ocupado[index] == 0)
+    {
+        printf("Está desocupado");
+    }
+    else
+    {
+        printf("Est%c ocupado y es ", a);
+
+        if (habitabilidad.estado[index][1] == 1)
+        {
+            printf("alquilado.\n");
+        }
+        else if (habitabilidad.estado[index][1] == 2)
+        {
+            printf("propio.\n");
+        }
+        else if (habitabilidad.estado[index][1] == 3)
+        {
+            printf("de un familiar o tercero.\n");
+        }
+
+        printf("La inforamción solicitada es la siguiente: \n");
+        printf("\tJefe de familia: \n");
+        printf("\t\tC%cdula: V-%.0f", e, jefe.cedula[index]);
+        printf("\t\tEdad: %d", jefe.edad[index]);
+        printf("\t\tSexo: %c\n\n", jefe.sexo[index]);
+
+        if (nino.cantidad[index] == 0)
+        {
+            printf("\tEste apartamento no tiene niños.");
+        }
+        else
+        {
+            printf("\tInfantes: %d\n", nino.cantidad[index]);
+            for (size_t i = 0; i < nino.cantidad[index]; i++)
+            {
+                printf("\t\t Infante: %d, Edad: %d, Sexo: %c", elle, nino.edad[index][i], nino.sexo[index][i]);
+            }
+        }
+        while (getchar() != '\n') // limpiar stdin
+            ;                     // option TWO to clean stdin
+        getchar();
+    }
 }
 
 void buscar_jefe()
