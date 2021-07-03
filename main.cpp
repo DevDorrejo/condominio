@@ -403,7 +403,7 @@ void v_completa()
         if (ap > 6)
         {
 
-            printf("El número de piso es inv%clido, solo hay 6 pisos.", a);
+            printf("El número de apartamento es inv%clido, solo hay 6 apartamentos.", a);
             printf("Presiona ENTER para continuar.");
             while (getchar() != '\n') // limpiar stdin
                 ;
@@ -413,16 +413,22 @@ void v_completa()
 
     index = t * p * ap; // La pocisión de indice para los arrays que contiene los datos.
     system("clear||cls");
+    printf("La inforamción solicitada es la siguiente: \n\n");
 
-    printf("\nEl apartamento #: %d, del piso: %d, de la torre: %d\n", ap, p, t);
+    printf("\tEl apartamento #: %d, del piso: %d, de la torre: %d\n", ap, p, t);
 
     if (habitabilidad.ocupado[index] == 0)
     {
-        printf("Está desocupado");
+        printf("\t\tEstá desocupado");
+        printf("\n\tPresione ENTER para continuar");
+
+        while (getchar() != '\n') // limpiar stdin
+            ;                     // option TWO to clean stdin
+        getchar();
     }
     else
     {
-        printf("Est%c ocupado y es ", a);
+        printf("\tEst%c ocupado y es ", a);
 
         if (habitabilidad.estado[index][1] == 1)
         {
@@ -437,8 +443,7 @@ void v_completa()
             printf("de un familiar o tercero.\n");
         }
 
-        printf("La inforamción solicitada es la siguiente: \n");
-        printf("\tJefe de familia: \n");
+        printf("\n\tJefe de familia: \n");
         printf("\t\tC%cdula: V-%.0f", e, jefe.cedula[index]);
         printf("\t\tEdad: %d", jefe.edad[index]);
         printf("\t\tSexo: %c\n\n", jefe.sexo[index]);
@@ -452,7 +457,7 @@ void v_completa()
             printf("\tInfantes: %d\n", nino.cantidad[index]);
             for (size_t i = 0; i < nino.cantidad[index]; i++)
             {
-                printf("\t\t Infante: %d, Edad: %d, Sexo: %c", elle, nino.edad[index][i], nino.sexo[index][i]);
+                printf("\t\tEdad: %d, Sexo: %c", nino.edad[index][i], nino.sexo[index][i]);
             }
         }
         while (getchar() != '\n') // limpiar stdin
