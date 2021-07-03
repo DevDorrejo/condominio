@@ -339,12 +339,13 @@ void censo()
 
                 //idea de salir del bucle.
 
-                // printf("\n%cDesea introducir otro registro? (s/n): ", inte);
-                // scanf(" %c", &otro);
-                // if (otro == 'n')
-                // {
-                //     break;
-                // }
+                printf("\n%cDesea introducir otro registro? (s/n): ", inte);
+                scanf(" %c", &otro);
+                if (otro == 'n')
+                {
+                    i = j = 1000;
+                    break;
+                }
 
                 counts++;
                 system("clear||cls"); // Limpia pantalla
