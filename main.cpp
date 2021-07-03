@@ -203,8 +203,21 @@ void censo()
                 // Encuesta Cedula ===END===
 
                 // Encuesta Edad ===START===
-                printf("\t\tEdad: ");
-                scanf("%d", &jefe.edad[counts]);
+                do
+                {
+                    printf("\t\tEdad: ");
+                    scanf("%d", &jefe.edad[counts]);
+
+                    if (jefe.edad[counts] < 18)
+                    {
+                        printf("\nLa edad de la persona es menor de edad.");
+                        printf("\nPresiona ENTER para continuar.");
+                        while (getchar() != '\n') // limpiar stdin
+                            ;
+                        getchar();
+                    }
+
+                } while (jefe.edad[counts] < 18);
                 // Encuesta Edad ===END===
 
                 // Encuesta Pareja ===START===
@@ -294,6 +307,7 @@ void censo()
                     printf("\n\t\t\t1. Alquilado.");
                     printf("\n\t\t\t2. Propio.");
                     printf("\n\t\t\t3. Familiar o Tercero.");
+                    printf("\n\t\t\tOpci%cn: ", o);
                     scanf("%d", &habitabilidad.estado[counts][1]);
 
                     if (habitabilidad.estado[counts][1] > 3)
@@ -322,7 +336,7 @@ void censo()
                         getchar();
                     }
                 } while (habitabilidad.ocupado[counts] > 1 && habitabilidad.ocupado[counts] < 2);
-                
+
                 //idea de salir del bucle.
 
                 // printf("\n%cDesea introducir otro registro? (s/n): ", inte);
