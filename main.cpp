@@ -442,7 +442,7 @@ void buscar_jefe()
             while (getchar() != '\n') // limpiar stdin
                 ;                     // option TWO to clean stdin
             getchar();
-            buscar_jefe();
+            reportes();
         }
         i++;
     }
@@ -698,35 +698,61 @@ void valor_modal()
     // Calcular la moda
     system("clear||cls");
     printf("Obtención del valor modal por edad de los jefes de familia por torres.");
-    int torre = 60, m, s, q;
+    int torre = 60, m[2] = {0}, q[2] = {0};
 
-    // for (int i = 0; i < 2; i++)
-    // {
-    // printf("\n\nModa de la torre %d", i + 1);
-
-    printf("\n\t\tEdad de los jefes:");
-    for (int a = 0; a < torre; a++)
+    for (int t = 0; t < 2; t++)
     {
-        printf(" %d", jefe.edad[a]);
-    }
+        printf("\n\nModa de la torre %d", t + 1);
 
-    for (int i = 0; i < torre; i++)
-    {
-        int count = 0;
-        for (int j = 0; j < torre; j++)
-            if (jefe.edad[j] == jefe.edad[i])
-                ++count;
-
-        if (count > m)
+        switch (t)
         {
-            m = count; //guardamos el mayor por el momento
-            q = jefe.edad[i];
-        }
-    }
-    //m tiene las repeticiones pero no se esta contando a si misma por eso m+1
-    printf("\n\tla moda es: %d y tiene %d repeticiones ", q, m + 1);
-    // }
+        case 0:
+            printf("\n\t\tEdad de los jefes:\n");
+            for (int a = 0; a < torre; a++)
+            {
+                printf("%d, ", jefe.edad[a]);
+            }
 
+            for (int i = 0; i < torre; i++)
+            {
+                int count = 0;
+                for (int j = 0; j < torre; j++)
+                    if (jefe.edad[j] == jefe.edad[i])
+                        ++count;
+
+                if (count > m[t])
+                {
+                    m[t] = count; //guardamos el mayor por el momento
+                    q[t] = jefe.edad[i];
+                }
+            }
+            break;
+
+        case 1:
+            printf("\n\t\tEdad de los jefes:\n");
+            for (int a = 60; a < torre * 2; a++)
+            {
+                printf("%d, ", jefe.edad[a]);
+            }
+
+            for (int i = 60; i < torre * 2; i++)
+            {
+                int count = 0;
+                for (int j = 60; j < torre * 2; j++)
+                    if (jefe.edad[j] == jefe.edad[i])
+                        ++count;
+
+                if (count > m[t])
+                {
+                    m[t] = count; //guardamos el mayor por el momento
+                    q[t] = jefe.edad[i];
+                }
+            }
+            break;
+        }
+        //m tiene las repeticiones pero no se esta contando a si misma por eso m+1
+        printf("\n\tTorre: #%d: \n\tla moda es: %d y tiene %d repeticiones ", t + 1, q[t], m[t]);
+    }
     printf("\n\tPresiona ENTER para continuar.");
     while (getchar() != '\n') // limpiar stdin
         ;
