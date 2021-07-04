@@ -268,7 +268,7 @@ void censo()
 
 void v_completa()
 {
-    int t, p, a, index;
+    system("clear||cls") int t, p, a, index;
     printf("Introduzca la inforamcion del apatarmento que desea buscar: \n");
 
     do
@@ -422,20 +422,22 @@ void v_completa()
 
 void buscar_jefe()
 {
-    int i = 0;
+    int index = 0;
     system("clear||cls");
     float buscar;
     printf("Buscar por la cedula del Jefe de familia");
     printf("\nIntroduzca la cedula que quiere buscar: V-");
     scanf("%f", &buscar);
 
-    while (jefe.cedula[i] != buscar)
+    for (int i = 0; i < size_tt; i++)
     {
         if (jefe.cedula[i] == buscar)
         {
+            index = i;
             break;
         }
-        else if (i > 120)
+
+        if (i == size_tt)
         {
             printf("\n\tLa cedula es invalidad");
             printf("\n\tPresione ENTER para continuar");
@@ -444,7 +446,6 @@ void buscar_jefe()
             getchar();
             reportes();
         }
-        i++;
     }
 
     for (int q = 0; q < 2; q++)
@@ -453,14 +454,14 @@ void buscar_jefe()
         {
             for (int r = 0; r < 6; r++)
             {
-                if (torres[q][w][r] == i)
+                if (torres[q][w][r] == index)
                 {
-                    switch (habitabilidad.ocupado[i])
+                    switch (habitabilidad.ocupado[index])
                     {
                     case 1: // Ocupado
                         printf("\n\t\tEsta ocupado y es ");
 
-                        switch (habitabilidad.estado[i])
+                        switch (habitabilidad.estado[index])
                         {
                         case 1:
                             printf("alquilado.\n");
@@ -474,11 +475,11 @@ void buscar_jefe()
                         }
 
                         printf("\n\tJefe de familia: \n");
-                        printf("\t\tCedula: V-%.0f", jefe.cedula[i]);
-                        printf("\tEdad: %d", jefe.edad[i]);
-                        printf("\tSexo: %c", jefe.sexo[i]);
+                        printf("\t\tCedula: V-%.0f", jefe.cedula[index]);
+                        printf("\tEdad: %d", jefe.edad[index]);
+                        printf("\tSexo: %c", jefe.sexo[index]);
 
-                        switch (nino.cantidad[i])
+                        switch (nino.cantidad[index])
                         {
                         case 0:
                             printf("\n\tEste apartamento no tiene niños.");
@@ -488,12 +489,12 @@ void buscar_jefe()
                             getchar();
                             break;
                         default:
-                            printf("\n\n\tInfantes: %d\n", nino.cantidad[i]);
-                            for (int h = 0; h < nino.cantidad[i]; h++)
+                            printf("\n\n\tInfantes: %d\n", nino.cantidad[index]);
+                            for (int h = 0; h < nino.cantidad[index]; h++)
                             {
                                 printf("\n\t\tInfante #%d", h + 1);
-                                printf("\n\t\tEdad: %d, ", nino.edad[i][h]);
-                                printf("Sexo: %c", nino.sexo[i][h]);
+                                printf("\n\t\tEdad: %d, ", nino.edad[index][h]);
+                                printf("Sexo: %c", nino.sexo[index][h]);
                             }
                             printf("\n\nPresiona ENTER para continuar.");
                             while (getchar() != '\n') // limpiar stdin
@@ -506,7 +507,7 @@ void buscar_jefe()
                     case 2: // Desocupado
                         printf("\n\t\tEsta desocupado y es ");
 
-                        switch (habitabilidad.estado[i])
+                        switch (habitabilidad.estado[index])
                         {
                         case 1:
                             printf("alquilado.\n");
@@ -520,11 +521,11 @@ void buscar_jefe()
                         }
 
                         printf("\n\tJefe de familia: \n");
-                        printf("\t\tCedula: V-%.0f", jefe.cedula[i]);
-                        printf("\tEdad: %d", jefe.edad[i]);
-                        printf("\tSexo: %c", jefe.sexo[i]);
+                        printf("\t\tCedula: V-%.0f", jefe.cedula[index]);
+                        printf("\tEdad: %d", jefe.edad[index]);
+                        printf("\tSexo: %c", jefe.sexo[index]);
 
-                        switch (nino.cantidad[i])
+                        switch (nino.cantidad[index])
                         {
                         case 0:
                             printf("\n\tEste apartamento no tiene niños.");
@@ -534,12 +535,12 @@ void buscar_jefe()
                             getchar();
                             break;
                         default:
-                            printf("\n\n\tInfantes: %d\n", nino.cantidad[i]);
-                            for (int h = 0; h < nino.cantidad[i]; h++)
+                            printf("\n\n\tInfantes: %d\n", nino.cantidad[index]);
+                            for (int h = 0; h < nino.cantidad[index]; h++)
                             {
                                 printf("\n\t\tInfante #%d", h + 1);
-                                printf("\n\t\tEdad: %d, ", nino.edad[i][h]);
-                                printf("Sexo: %c", nino.sexo[i][h]);
+                                printf("\n\t\tEdad: %d, ", nino.edad[index][h]);
+                                printf("Sexo: %c", nino.sexo[index][h]);
                             }
                             printf("\n\nPresiona ENTER para continuar.");
                             while (getchar() != '\n') // limpiar stdin
