@@ -695,42 +695,6 @@ void caso_especial()
 
 void valor_modal()
 {
-    // Calcular la moda
-    system("clear||cls");
-    printf("Obtención del valor modal por edad de los jefes de familia por torres.");
-    int torre = 60, m, s, q;
-
-    // for (int i = 0; i < 2; i++)
-    // {
-    // printf("\n\nModa de la torre %d", i + 1);
-
-    printf("\n\t\tEdad de los jefes:");
-    for (int a = 0; a < torre; a++)
-    {
-        printf(" %d", jefe.edad[a]);
-    }
-
-    for (int i = 0; i < torre; i++)
-    {
-        int count = 0;
-        for (int j = 0; j < torre; j++)
-            if (jefe.edad[j] == jefe.edad[i])
-                ++count;
-
-        if (count > m)
-        {
-            m = count; //guardamos el mayor por el momento
-            q = jefe.edad[i];
-        }
-    }
-    //m tiene las repeticiones pero no se esta contando a si misma por eso m+1
-    printf("\n\tla moda es: %d y tiene %d repeticiones ", q, m);
-    // }
-
-    printf("\n\tPresiona ENTER para continuar.");
-    while (getchar() != '\n') // limpiar stdin
-        ;
-    getchar();
 }
 
 void estadistica()
