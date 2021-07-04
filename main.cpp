@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <math.h> // Libreria que trae las funciones matemáticas, log10.
 #include <time.h> // Librería que trae las funciones srand, time y rand para generar valores aleatorios
-#include <locale.h>
+#include <limits.h>
 
 #define TRUE 1
 #define FALSE 0
@@ -589,53 +589,108 @@ void rl_porcentaje()
 
 void caso_especial()
 {
-    int torre, piso;
-    int edad[size_tt];
-    printf("Busqueda de casos especiales.");
+    system("clear||cls");
+    int torre, piso, primero, segundo, tercero, index, p_index, s_index, t_index;
+    primero = segundo = tercero = INT_MIN;
 
-    printf("Introduzca torre y piso para iniciar la busqueda de casos especiales.");
+    printf("Busqueda de casos especiales.\n\n");
+    printf("\tIntroduzca torre y piso para iniciar la busqueda de casos especiales.");
 
     do
     {
-        printf("Torre: ");
+        printf("\n\t\tTorre (1 o 2): ");
         scanf("%d", &torre);
 
         if (torre < 1 || torre > 2)
         {
 
-            printf("El número de torre es invalido, solo hay 2 torres.");
-            printf("Presiona ENTER para continuar.");
+            printf("\n\t\tEl número de torre es invalido, solo hay 2 torres.");
+            printf("\n\tPresiona ENTER para continuar.");
             while (getchar() != '\n') // limpiar stdin
                 ;
             getchar();
         }
-    } while (torre > 1 && torre < 2);
+    } while (torre < 1 || torre > 2);
 
     do
     {
-        printf("Piso: ");
+        printf("\n\t\tPiso (1 al 10): ");
         scanf("%d", &piso);
 
         if (piso > 10)
         {
 
-            printf("El número de piso es invalido, solo hay 10 pisos.");
-            printf("Presiona ENTER para continuar.");
+            printf("\n\t\tEl número de piso es invalido, solo hay 10 pisos.");
+            printf("\n\tPresiona ENTER para continuar.");
             while (getchar() != '\n') // limpiar stdin
                 ;
             getchar();
         }
     } while (piso > 10);
 
-    for (int q = 1; q <= torre; q++)
+    index = torre * piso * 6;
+    for (int i = 0; i < index; i++)
     {
-        for (int w = 1; w <= piso; w++)
+        if ((jefe.edad[i] >= 55 && jefe.sexo[i] == 'm' && jefe.pareja[i] == 'n' && nino.cantidad[i] == 0) || (jefe.edad[i] >= 55 && jefe.sexo[i] == 'f' && jefe.pareja[i] == 'n' && nino.cantidad[i] >= 2))
         {
-            for (int r = 1; r <= 6; r++)
+            // Si el númer actual is mayor que el primero
+            if (jefe.edad[i] > primero)
             {
+                tercero = segundo;
+                segundo = primero;
+                s_index = p_index;
+                primero = jefe.edad[i];
+                p_index = i;
+            }
+            // Si la edad del jefe esta entre el primero y el segundo, actualiza el segundo.
+            else if (jefe.edad[i] > segundo)
+            {
+                tercero = segundo;
+                t_index = s_index;
+                segundo = jefe.edad[i];
+                s_index = i;
+            }
+
+            else if (jefe.edad[i] > tercero)
+            {
+                tercero = jefe.edad[i];
+                t_index = i;
             }
         }
     }
+
+    printf("\nLos top 3 son los siguientes: \n\n");
+    printf("\tJefe de familia: \n");
+
+    printf("\t\tTop 1: \n");
+    printf("\t\t\tEdad: %d", jefe.edad[p_index]);
+    printf("\n\t\t\tSexo: %c", jefe.sexo[p_index]);
+    printf("\n\t\t\tInfantes: %d", nino.cantidad[p_index]);
+    for (int i = 0; i < nino.cantidad[p_index]; i++)
+    {
+        printf("\n\t\t\t\tSexo: %c", nino.sexo[p_index][i]);
+    }
+
+    printf("\n\n\t\tTop 2: \n");
+    printf("\t\t\tEdad: %d", jefe.edad[s_index]);
+    printf("\n\t\t\tSexo: %c", jefe.sexo[s_index]);
+    printf("\n\t\t\tInfantes: %d", nino.cantidad[s_index]);
+    for (int i = 0; i < nino.cantidad[s_index]; i++)
+    {
+        printf("\n\t\t\t\tSexo: %c", nino.sexo[s_index][i]);
+    }
+    printf("\n\n\t\tTop 3: \n");
+    printf("\t\t\tEdad: %d", jefe.edad[t_index]);
+    printf("\n\t\t\tSexo: %c", jefe.sexo[t_index]);
+    printf("\n\t\t\tInfantes: %d", nino.cantidad[t_index]);
+    for (int i = 0; i < nino.cantidad[t_index]; i++)
+    {
+        printf("\n\t\t\t\tSexo: %c", nino.sexo[t_index][i]);
+    }
+    printf("\n\tPresiona ENTER para continuar.");
+    while (getchar() != '\n') // limpiar stdin
+        ;
+    getchar();
 }
 
 void valor_modal()
@@ -645,7 +700,6 @@ void valor_modal()
 void estadistica()
 {
 }
-
 int digits(float value)
 {
     return (log10(value) + 1);
