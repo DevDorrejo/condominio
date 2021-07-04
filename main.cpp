@@ -572,20 +572,19 @@ void rl_porcentaje()
             f++;
         }
         system("clear||cls");
-        printf("Hay %d personas Masculinos y %d personas Femeninas\n\n", m, f);
+        printf("Hay %d personas Masculinos y %d personas Femeninas\n", m, f);
+        printf("\tLa relacion porcentual es: \n");
+        mp = (float)m / 120 * 100;
+        printf("\t%.2f% Hombres.", mp);
+        fp = (float)f / 120 * 100;
+        printf("\t%.2f% Mujeres.\n", fp);
     }
-
-    printf("La relacion porcentual es: \n");
-    mp = m / 120;
-    printf("%.2f% Hombres.", mp);
-    fp = (f / 120) * 100;
-    printf("\t%.2f% Mujeres.\n", fp);
 
     printf("\n\tPresione ENTER para continuar");
     while (getchar() != '\n') // limpiar stdin
         ;                     // option TWO to clean stdin
     getchar();
-    buscar_jefe();
+    reportes();
 }
 
 void caso_especial()
