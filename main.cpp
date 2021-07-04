@@ -7,19 +7,10 @@
 #define TRUE 1
 #define FALSE 0
 
-// Vocales con acentos
-char a = 160;
-char e = 130;
-char i = 161;
-char o = 162;
-char u = 163;
-char elle = 164; // Imprime la ñ.
-char inte = 424; // Aunque cree overflow, mostrará el simbolo ?.
-
 //Variables Globales
 
-int torres[2][10][6] = {};                          // Array Inicializado. (Simular torre).
-const int size_tt = (sizeof(torres) / sizeof(int)); // Logintud del array guardado en una variable constante.
+int torres[2][10][6] = {};                              // Array Inicializado. (Simular torre).
+const int size_tt = (sizeof(torres) / sizeof(int) + 1); // Logintud del array guardado en una variable constante.
 
 struct Jefe // Se crea la estructura del jefe.
 {
@@ -78,12 +69,12 @@ void menu()
         do
         {
             system("clear||cls"); // Limpia pantalla
-            printf("Administraci%cn del Conjunto Residencial: \n", o);
+            printf("Administracion del Conjunto Residencial: \n");
             printf("\t1- Realizar encuestas.\n");
             printf("\t2- Reportes.\n");
             printf("\t3- Salir.\n");
 
-            printf("\tSeleccione una opci%cn: ", o);
+            printf("\tSeleccione una opcion: ");
             scanf("%d", &opcion);           // Aceptamos una entrada del usuario.
         } while (opcion < 1 && opcion > 3); // Se valida el menu para que el usuario no introduzca una opción diferente a la que queremos.
 
@@ -116,16 +107,16 @@ void reportes()
         {
             system("clear||cls");
             printf("Elija el tipo de cambio que desee hacer: \n");
-            printf("\t1- Visualizar informaci%cn completa de un apartamento.\n", o);
-            printf("\t2- Buscar informaci%cn del jefe de familia.\n", o);
-            printf("\t3- Relaci%cn porcentual de genero.\n", o);
+            printf("\t1- Visualizar informacion completa de un apartamento.\n");
+            printf("\t2- Buscar informacion del jefe de familia.\n");
+            printf("\t3- Relacion porcentual de genero.\n");
             printf("\t4- Casos especiales.\n");
             printf("\t5- Valor modal.\n");
-            printf("\t6- Estad%cstica de habitabilidad.\n", i);
-            printf("\t7- Men%c anterior.\n", u);
+            printf("\t6- Estadistica de habitabilidad.\n");
+            printf("\t7- Menu anterior.\n");
             printf("\t8- Salir.\n");
 
-            printf("Seleccione una opci%cn: ", o);
+            printf("Seleccione una opcion: ");
             scanf("%d", &opcion);
         } while (opcion < 1 && opcion > 8);
 
@@ -175,268 +166,266 @@ void censo()
                 system("clear||cls"); // Limpia pantalla
                 printf("Censo Residencial\n\n");
 
-                printf("Informaci%cn de la Torre %d, Piso: %d, Apartamento: %d\n", o, i, j, z);
+                printf("Informacion de la Torre %d, Piso: %d, Apartamento: %d\n", i, j, z);
 
                 printf("\n\tDatos del jefe de familia: \n");
 
-                // // Introducción Automática de datos Jefe ----Start----
-                // // Cédula
-                // jefe.cedula[counts] = alea_num(0000000, 9999999);
-                // printf("\tCédula: V-%.0f\n", jefe.cedula[counts]);
-                // // Edad
-                // jefe.edad[counts] = alea_num(20, 80);
-                // printf("\tEdad: %d\n", jefe.edad[counts]);
-                // // Pareja
-                // dec = alea_num(0, 1);
-                // if (dec == 1)
-                // {
-                //     jefe.pareja[counts] = 's';
-                // }
-                // else if (dec == 0)
-                // {
-                //     jefe.pareja[counts] = 'n';
-                // }
-                // printf("\t¿Tiene pareja (s/n)? %c\n", jefe.pareja[counts]);
-                // // Sexo
-                // dec = alea_num(0, 1);
-                // if (dec == 1)
-                // {
-                //     jefe.sexo[counts] = 'm';
-                // }
-                // else if (dec == 0)
-                // {
-                //     jefe.sexo[counts] = 'f';
-                // }
-                // printf("\t¿Cuál es su genero? (m/f): %c\n", jefe.sexo[counts]);
-                // // Introducción Automática de datos Jefe ----End----
-
-                // // Introducción Automática de datos Infante ----Start----
-                // // Cantidad
-                // nino.cantidad[counts] = alea_num(0, 5);
-                // printf("\n\t\t%cCu%cntos niños hay en el apartamento: %d", inte, a, nino.cantidad[counts]);
-
-                // for (int h = 0; h < nino.cantidad[counts]; h++)
-                // {
-                //     printf("\n\t\tInformaci%cn del niño #%d: \n", o, h + 1);
-
-                //     // Edad
-                //     nino.edad[counts][h] = alea_num(0, 17);
-                //     printf("\t\tEdad: %d\t", nino.edad[counts][h]);
-
-                //     // Sexo
-                //     dec = alea_num(0, 1);
-                //     if (dec == 1)
-                //     {
-                //         nino.sexo[counts][h] = 'm';
-                //     }
-                //     else if (dec == 0)
-                //     {
-                //         nino.sexo[counts][h] = 'f';
-                //     }
-                //     printf("\t%cCu%cl es su genero? (m/f): %c", inte, a, nino.sexo[counts][h]);
-                // }
-                // // Introducción Automática de datos Infante ----End----
-
-                // // Introducción Automática de datos Apartamento ----Start----
-                // int estado = 0;
-                // estado = alea_num(0, 1);
-                // if (estado == 1)
-                // {
-                //     printf("\n\n\tEl apartamento esta ocupado.");
-                //     habitabilidad.ocupado[counts] = 1;
-                // }
-                // else
-                // {
-                //     printf("\n\tEl apartamento esta desocupado.");
-                //     habitabilidad.ocupado[counts] = 0;
-                // }
-                // habitabilidad.estado[counts] = alea_num(1, 3);
-                // printf("\n\tEl apartamento es: ");
-
-                // if (habitabilidad.estado[counts] == 1)
-                // {
-                //     printf("Alquilado.\n");
-                // }
-                // else if (habitabilidad.estado[counts] == 2)
-                // {
-                //     printf("Propio.\n");
-                // }
-                // else if (habitabilidad.estado[counts] == 3)
-                // {
-                //     printf("Familiar o Tercero.\n");
-                // }
-                // system("sleep 1s");
-                // Introducción Automática de datos Apartamento ----End----
-
-                // Introducción Manual de datos ----Start----
-                // Encuesta Cedula ===START===
-
-                do // Validar datos cuando el usuario lo ingresa.
+                // Introducción Automática de datos Jefe ----Start----
+                // Cédula
+                jefe.cedula[counts] = alea_num(0000000, 9999999);
+                printf("\tCédula: V-%.0f\n", jefe.cedula[counts]);
+                // Edad
+                jefe.edad[counts] = alea_num(20, 80);
+                printf("\tEdad: %d\n", jefe.edad[counts]);
+                // Pareja
+                dec = alea_num(1, 2);
+                switch (dec)
                 {
-                    printf("\t\tC%cdula: V-", e);
-                    scanf("%f", &jefe.cedula[counts]);
-
-                    count = digits(jefe.cedula[counts]);
-                    if (count < 7 || count > 7)
-                    {
-                        printf("\tFormato de la c%cdula incorrecta, por favor intente de nuevo.", e);
-                        printf("\n\tPresiona ENTER para continuar.");
-                        while (getchar() != '\n') // limpiar stdin
-                            ;
-                        getchar();
-                    }
-                } while (count != 7);
-                // Encuesta Cedula ===END===
-
-                // Encuesta Edad ===START===
-                do
+                case 1:
+                    jefe.pareja[counts] = 's';
+                    break;
+                case 2:
+                    jefe.pareja[counts] = 'n';
+                    break;
+                }
+                printf("\t¿Tiene pareja (s/n)? %c\n", jefe.pareja[counts]);
+                // Sexo
+                dec = alea_num(1, 2);
+                switch (dec)
                 {
-                    printf("\t\tEdad: ");
-                    scanf("%d", &jefe.edad[counts]);
+                case 1:
+                    jefe.sexo[counts] = 'm';
+                    break;
+                case 2:
+                    jefe.sexo[counts] = 'f';
+                    break;
+                }
+                printf("\t¿Cuál es su genero? (m/f): %c\n", jefe.sexo[counts]);
+                // Introducción Automática de datos Jefe ----End----
 
-                    if (jefe.edad[counts] < 18)
-                    {
-                        printf("\nLa edad de la persona es menor de edad.");
-                        printf("\nPresiona ENTER para continuar.");
-                        while (getchar() != '\n') // limpiar stdin
-                            ;
-                        getchar();
-                    }
-                } while (jefe.edad[counts] < 18);
-                // Encuesta Edad ===END===
-
-                // Encuesta Pareja ===START===
-                do
-                {
-                    printf("\t\t%cTiene pareja (s/n)? ", inte);
-                    scanf(" %c", &jefe.pareja[counts]);
-                    if (jefe.pareja[counts] != 's' && jefe.pareja[counts] != 'n')
-                    {
-                        printf("\tDebe de introducir (s/n).");
-                        printf("Presiona ENTER para continuar.");
-                        while (getchar() != '\n') // limpiar stdin
-                            ;
-                        getchar();
-                    }
-                } while (jefe.pareja[counts] != 's' && jefe.pareja[counts] != 'n');
-                // Encuesta Pareja ===END===
-
-                // Encuesta Genero ===START===
-                do
-                {
-                    printf("\t\t%cCu%cl es su genero? (m/f): ", inte, a);
-                    scanf(" %c", &jefe.sexo[counts]);
-                    if (jefe.sexo[counts] != 'm' && jefe.sexo[counts] != 'f')
-                    {
-                        printf("\tDebe de introducir (m/f).");
-                        printf("Presiona ENTER para continuar.");
-                        while (getchar() != '\n') // limpiar stdin
-                            ;
-                        getchar();
-                    }
-                } while (jefe.sexo[counts] != 'm' && jefe.sexo[counts] != 'f');
-                // Encuesta Genero ===END===
-
-                // Niños en el apartamento
-                printf("\n\tDatos de los niños: \n");
-
-                printf("\t\t%cCu%cntos niños hay en el apartamento: ", inte, a);
-                scanf("%d", &nino.cantidad[counts]);
+                // Introducción Automática de datos Infante ----Start----
+                // Cantidad
+                nino.cantidad[counts] = alea_num(0, 5);
+                printf("\n\t\tCuantos niños hay en el apartamento: %d", nino.cantidad[counts]);
 
                 for (int h = 0; h < nino.cantidad[counts]; h++)
                 {
-                    printf("\t\tInformaci%cn del niño #%d: \n", o, h + 1);
+                    printf("\n\t\tInformacion del niño #%d: \n", h);
 
-                    // Encuesta Edad ===START===
-                    do
+                    // Edad
+                    nino.edad[counts][h] = alea_num(0, 17);
+                    printf("\t\t\tEdad: %d", nino.edad[counts][h]);
+
+                    // Sexo
+                    dec = alea_num(1, 2);
+                    switch (dec)
                     {
-                        printf("\t\tEdad: ");
-                        scanf("%d", &nino.edad[counts][h]);
+                    case 1:
+                        nino.sexo[counts][h] = 'm';
+                        break;
+                    case 2:
+                        nino.sexo[counts][h] = 'f';
+                        break;
+                    }
+                    printf("\n\t\t\tCual es su genero? (m/f): %c\n", nino.sexo[counts][h]);
+                }
+                // Introducción Automática de datos Infante ----End----
 
-                        if (nino.edad[counts][h] > 17)
-                        {
-                            printf("\nLa edad de la persona es mayor de edad.");
-                            printf("\nPresiona ENTER para continuar.");
-                            while (getchar() != '\n') // limpiar stdin
-                                ;
-                            getchar();
-                        }
-
-                    } while (nino.edad[counts][h] > 17);
-                    // Encuesta Edad ===END===
-
-                    // Encuesta Sexo ===START===
-                    do
-                    {
-                        printf("\t\t%cCu%cl es su genero? (m/f): ", inte, a);
-                        scanf(" %c", &nino.sexo[counts][h]);
-                        if (nino.sexo[counts][h] != 'm' && nino.sexo[counts][h] != 'f')
-                        {
-                            printf("\tDebe de introducir (m/f).");
-                            printf("Presiona ENTER para continuar.");
-                            while (getchar() != '\n') // limpiar stdin
-                                ;
-                            getchar();
-                        }
-                    } while (nino.sexo[counts][h] != 'm' && nino.sexo[counts][h] != 'f');
-                    // Encuesta Edad ===END===
-                    printf("\n");
+                // Introducción Automática de datos Apartamento ----Start----
+                habitabilidad.ocupado[counts] = alea_num(1, 2);
+                switch (habitabilidad.ocupado[counts])
+                {
+                case 1:
+                    printf("\n\n\tEl apartamento esta ocupado.");
+                    break;
+                case 2:
+                    printf("\n\tEl apartamento esta desocupado.");
                 }
 
-                // Apartamento situación (Alquilado, Propio, Familiar o Tercero) ====START====
-                fflush(stdin); // Limpiar las entradas de datos.
-                printf("\n\tDatos del apartamento: \n");
-                do
+                habitabilidad.estado[counts] = alea_num(1, 3);
+                printf("\n\tEl apartamento es: ");
+                switch (habitabilidad.estado[counts])
                 {
-                    printf("\t\tEl apartamento es: ");
-                    printf("\n\t\t\t1. Alquilado.");
-                    printf("\n\t\t\t2. Propio.");
-                    printf("\n\t\t\t3. Familiar o Tercero.");
-                    printf("\n\t\t\tOpci%cn: ", o);
-                    scanf("%d", &habitabilidad.estado[counts]);
-
-                    if (habitabilidad.estado[counts] > 3)
-                    {
-                        printf("\tDebe de introducir un valor v&clido 1, 2 o 3.", a);
-                        printf("Presiona ENTER para continuar.");
-                        while (getchar() != '\n') // limpiar stdin
-                            ;
-                        getchar();
-                    }
-                } while (habitabilidad.estado[counts] < 1 || habitabilidad.estado[counts] > 3);
-                // Apartamento situación (Alquilado, Propio, Familiar o Tercero) ====END====
-
-                // Apartamento estados (Ocupado o Desocupado) ====START====
-                do
-                {
-                    printf("\t\tEl apartamento esta: ");
-                    printf("\n\t\t\t1. Ocupado.");
-                    printf("\n\t\t\t2. Desocupado.");
-                    printf("\n\t\t\tOpci%cn: ", o);
-                    scanf("%d", &habitabilidad.ocupado[counts]);
-                    printf("counts %d, %d", counts, habitabilidad.ocupado[counts]);
-
-                    if (habitabilidad.ocupado[counts] > 2)
-                    {
-                        printf("\tDebe de introducir un valor v&clido 1 o 2.", a);
-                        printf("Presiona ENTER para continuar.");
-                        while (getchar() != '\n') // limpiar stdin
-                            ;
-                        getchar();
-                    }
-                } while (habitabilidad.ocupado[counts] > 1 && habitabilidad.ocupado[counts] < 2);
-                // Apartamento estados (Ocupado o Desocupado) ====END====
-
-                // idea de salir del bucle.
-
-                printf("\n%cDesea introducir otro registro? (s/n): ", inte);
-                scanf(" %c", &otro);
-                if (otro == 'n')
-                {
-                    i = j = 1000;
+                case 1:
+                    printf("alquilado.\n");
+                    break;
+                case 2:
+                    printf("propio.\n");
+                    break;
+                case 3:
+                    printf("de un familiar o tercero.\n");
                     break;
                 }
-                // Introducción Manual de datos ----END----
+                // system("sleep 0.4s");
+                // Introducción Automática de datos Apartamento ----End----
+
+                // // Introducción Manual de datos ----Start----
+                // // Encuesta Cedula ===START===
+
+                // do // Validar datos cuando el usuario lo ingresa.
+                // {
+                //     printf("\t\tCedula: V-");
+                //     scanf("%f", &jefe.cedula[counts]);
+
+                //     count = digits(jefe.cedula[counts]);
+                //     if (count < 7 || count > 7)
+                //     {
+                //         printf("\tFormato de la cedula incorrecta, por favor intente de nuevo.");
+                //         printf("\n\tPresiona ENTER para continuar.");
+                //         while (getchar() != '\n') // limpiar stdin
+                //             ;
+                //         getchar();
+                //     }
+                // } while (count != 7);
+                // // Encuesta Cedula ===END===
+
+                // // Encuesta Edad ===START===
+                // do
+                // {
+                //     printf("\t\tEdad: ");
+                //     scanf("%d", &jefe.edad[counts]);
+
+                //     if (jefe.edad[counts] < 18)
+                //     {
+                //         printf("\nLa edad de la persona es menor de edad.");
+                //         printf("\nPresiona ENTER para continuar.");
+                //         while (getchar() != '\n') // limpiar stdin
+                //             ;
+                //         getchar();
+                //     }
+                // } while (jefe.edad[counts] < 18);
+                // // Encuesta Edad ===END===
+
+                // // Encuesta Pareja ===START===
+                // do
+                // {
+                //     printf("\t\tTiene pareja (s/n)? ");
+                //     scanf(" %c", &jefe.pareja[counts]);
+                //     if (jefe.pareja[counts] != 's' && jefe.pareja[counts] != 'n')
+                //     {
+                //         printf("\tDebe de introducir (s/n).");
+                //         printf("Presiona ENTER para continuar.");
+                //         while (getchar() != '\n') // limpiar stdin
+                //             ;
+                //         getchar();
+                //     }
+                // } while (jefe.pareja[counts] != 's' && jefe.pareja[counts] != 'n');
+                // // Encuesta Pareja ===END===
+
+                // // Encuesta Genero ===START===
+                // do
+                // {
+                //     printf("\t\tCual es su genero? (m/f): ");
+                //     scanf(" %c", &jefe.sexo[counts]);
+                //     if (jefe.sexo[counts] != 'm' && jefe.sexo[counts] != 'f')
+                //     {
+                //         printf("\tDebe de introducir (m/f).");
+                //         printf("Presiona ENTER para continuar.");
+                //         while (getchar() != '\n') // limpiar stdin
+                //             ;
+                //         getchar();
+                //     }
+                // } while (jefe.sexo[counts] != 'm' && jefe.sexo[counts] != 'f');
+                // // Encuesta Genero ===END===
+
+                // // Niños en el apartamento
+                // printf("\n\tDatos de los niños: \n");
+
+                // printf("\t\tCuantos niños hay en el apartamento: ");
+                // scanf("%d", &nino.cantidad[counts]);
+
+                // for (int h = 1; h <= nino.cantidad[counts]; h++)
+                // {
+                //     printf("\t\tInformacion del niño #%d: \n", h);
+
+                //     // Encuesta Edad ===START===
+                //     do
+                //     {
+                //         printf("\t\tEdad: ");
+                //         scanf("%d", &nino.edad[counts][h]);
+
+                //         if (nino.edad[counts][h] > 17)
+                //         {
+                //             printf("\nLa edad de la persona es mayor de edad.");
+                //             printf("\nPresiona ENTER para continuar.");
+                //             while (getchar() != '\n') // limpiar stdin
+                //                 ;
+                //             getchar();
+                //         }
+
+                //     } while (nino.edad[counts][h] > 17);
+                //     // Encuesta Edad ===END===
+
+                //     // Encuesta Sexo ===START===
+                //     do
+                //     {
+                //         printf("\t\tCual es su genero? (m/f): ");
+                //         scanf(" %c", &nino.sexo[counts][h]);
+                //         if (nino.sexo[counts][h] != 'm' && nino.sexo[counts][h] != 'f')
+                //         {
+                //             printf("\tDebe de introducir (m/f).");
+                //             printf("Presiona ENTER para continuar.");
+                //             while (getchar() != '\n') // limpiar stdin
+                //                 ;
+                //             getchar();
+                //         }
+                //     } while (nino.sexo[counts][h] != 'm' && nino.sexo[counts][h] != 'f');
+                //     // Encuesta Edad ===END===
+                //     printf("\n");
+                // }
+
+                // // Apartamento situación (Alquilado, Propio, Familiar o Tercero) ====START====
+                // printf("\n\tDatos del apartamento: \n");
+                // do
+                // {
+                //     printf("\t\tEl apartamento es: ");
+                //     printf("\n\t\t\t1. Alquilado.");
+                //     printf("\n\t\t\t2. Propio.");
+                //     printf("\n\t\t\t3. Familiar o Tercero.");
+                //     printf("\n\t\t\tOpcion: ");
+                //     scanf("%d", &habitabilidad.estado[counts]);
+
+                //     if (habitabilidad.estado[counts] > 3)
+                //     {
+                //         printf("\tDebe de introducir un valor valido 1, 2 o 3.");
+                //         printf("Presiona ENTER para continuar.");
+                //         while (getchar() != '\n') // limpiar stdin
+                //             ;
+                //         getchar();
+                //     }
+                // } while (habitabilidad.estado[counts] < 1 || habitabilidad.estado[counts] > 3);
+                // // Apartamento situación (Alquilado, Propio, Familiar o Tercero) ====END====
+
+                // // Apartamento estados (Ocupado o Desocupado) ====START====
+                // do
+                // {
+                //     printf("\t\tEl apartamento esta: ");
+                //     printf("\n\t\t\t1. Ocupado.");
+                //     printf("\n\t\t\t2. Desocupado.");
+                //     printf("\n\t\t\tOpcion: ");
+                //     scanf("%d", &habitabilidad.ocupado[counts]);
+
+                //     if (habitabilidad.ocupado[counts] > 2)
+                //     {
+                //         printf("\tDebe de introducir un valor valido 1 o 2.");
+                //         printf("Presiona ENTER para continuar.");
+                //         while (getchar() != '\n') // limpiar stdin
+                //             ;
+                //         getchar();
+                //     }
+                // } while (habitabilidad.ocupado[counts] > 1 && habitabilidad.ocupado[counts] < 2);
+                // // Apartamento estados (Ocupado o Desocupado) ====END====
+
+                // // idea de salir del bucle.
+
+                // printf("\nedesea introducir otro registro? (s/n): ");
+                // scanf(" %c", &otro);
+                // if (otro == 'n')
+                // {
+                //     i = j = 1000;
+                //     break;
+                // }
+                // // Introducción Manual de datos ----END----
 
                 system("clear||cls"); // Limpia pantalla
                 // Encuesta Pareja ===END===
@@ -449,7 +438,7 @@ void censo()
 void v_completa()
 {
     int t, p, ap, index;
-    printf("Introduzca la inforamci%cn del apatarmento que desea buscar: \n", o);
+    printf("Introduzca la inforamcion del apatarmento que desea buscar: \n");
 
     do
     {
@@ -459,7 +448,7 @@ void v_completa()
         if (t < 1 || t > 2)
         {
 
-            printf("\nEl número de torre es inv%clido, solo hay 2 torres.", a);
+            printf("\nEl número de torre es invalido, solo hay 2 torres.");
             printf("\nPresiona ENTER para continuar.");
             while (getchar() != '\n') // limpiar stdin
                 ;
@@ -475,7 +464,7 @@ void v_completa()
         if (p > 10)
         {
 
-            printf("\nEl número de piso es inv%clido, solo hay 10 pisos.", a);
+            printf("\nEl número de piso es invalido, solo hay 10 pisos.");
             printf("\nPresiona ENTER para continuar.");
             while (getchar() != '\n') // limpiar stdin
                 ;
@@ -490,7 +479,7 @@ void v_completa()
 
         if (ap > 6)
         {
-            printf("\nEl número de apartamento es inv%clido, solo hay 6 apartamentos.", a);
+            printf("\nEl número de apartamento es invalido, solo hay 6 apartamentos.");
             printf("\nPresiona ENTER para continuar.");
             while (getchar() != '\n') // limpiar stdin
                 ;
@@ -500,208 +489,217 @@ void v_completa()
 
     // La pocisión de indice para los arrays que contiene los datos.
     system("clear||cls");
-    printf("La inforamci%cn solicitada es la siguiente: \n\n", o);
+    printf("La inforamcion solicitada es la siguiente: \n\n");
+    printf("\tEl apartamento #%d, del piso: %d, de la torre: %d\n", ap, p, t);
 
     index = t * p * ap;
-    if (habitabilidad.ocupado[index] == 2)
+    switch (habitabilidad.ocupado[index])
     {
-        printf("\tEl apartamento #%d, del piso: %d, de la torre: %d\n", ap, p, t);
-        printf("\t\tEst%c desocupado y es ", a);
+    case 1:
+        printf("\n\t\tEsta ocupado y es ");
 
-        if (habitabilidad.estado[i] == 1)
+        switch (habitabilidad.estado[index])
         {
+        case 1:
             printf("alquilado.\n");
-        }
-        else if (habitabilidad.estado[i] == 2)
-        {
+            break;
+        case 2:
             printf("propio.\n");
-        }
-        else if (habitabilidad.estado[i] == 3)
-        {
+            break;
+        case 3:
             printf("de un familiar o tercero.\n");
-        }
-
-        printf("\t\tEl Jefe de este apartamento es: \n");
-
-        printf("\n\tJefe de familia: \n");
-        printf("\t\tC%cdula: V-%.0f", e, jefe.cedula[i]);
-        printf("\tEdad: %d", jefe.edad[i]);
-        printf("\tSexo: %c\n\n", jefe.sexo[i]);
-
-        while (getchar() != '\n') // limpiar stdin
-            ;                     // option TWO to clean stdin
-        getchar();
-    }
-    else
-    {
-        printf("\tEl apartamento #%d, del piso: %d, de la torre: %d\n", ap, p, t);
-        printf("\tEst%c ocupado y es ", a);
-
-        if (habitabilidad.estado[index] == 1)
-        {
-            printf("alquilado.\n");
-        }
-        else if (habitabilidad.estado[index] == 2)
-        {
-            printf("propio.\n");
-        }
-        else if (habitabilidad.estado[index] == 3)
-        {
-            printf("de un familiar o tercero.\n");
+            break;
         }
 
         printf("\n\tJefe de familia: \n");
-        printf("\t\tC%cdula: V-%.0f", e, jefe.cedula[index]);
-        printf("\t\tEdad: %d", jefe.edad[index]);
-        printf("\t\tSexo: %c\n\n", jefe.sexo[index]);
+        printf("\t\tCedula: V-%.0f", jefe.cedula[index]);
+        printf("\tEdad: %d", jefe.edad[index]);
+        printf("\tSexo: %c", jefe.sexo[index]);
 
-        if (nino.cantidad[index] == 0)
+        switch (nino.cantidad[index])
         {
-            printf("\tEste apartamento no tiene niños.");
-        }
-        else
-        {
-            printf("\tInfantes: %d\n", nino.cantidad[index]);
-            for (int i = 0; i < nino.cantidad[index]; i++)
+        case 0:
+            printf("\n\tEste apartamento no tiene niños.");
+            printf("\n\nPresiona ENTER para continuar.");
+            while (getchar() != '\n') // limpiar stdin
+                ;                     // option TWO to clean stdin
+            getchar();
+            break;
+        default:
+            printf("\n\n\tInfantes: %d\n", nino.cantidad[index]);
+            for (int h = 0; h < nino.cantidad[index]; h++)
             {
-                printf("\n\t\tInfante #%d", i + 1);
-                printf("\t\tEdad: %d, Sexo: %c", nino.edad[index][i], nino.sexo[index][i]);
+                printf("\n\t\tInfante #%d", h + 1);
+                printf("\n\t\tEdad: %d, ", nino.edad[index][h]);
+                printf("Sexo: %c", nino.sexo[index][h]);
             }
+            printf("\n\nPresiona ENTER para continuar.");
+            while (getchar() != '\n') // limpiar stdin
+                ;                     // option TWO to clean stdin
+            getchar();
+            break;
         }
+
+        printf("\n\nPresiona ENTER para continuar.");
         while (getchar() != '\n') // limpiar stdin
             ;                     // option TWO to clean stdin
         getchar();
+        break;
+    case 2:
+        printf("\n\t\tEsta desocupado y es ");
+
+        switch (habitabilidad.estado[index])
+        {
+        case 1:
+            printf("alquilado.\n");
+            break;
+        case 2:
+            printf("propio.\n");
+            break;
+        case 3:
+            printf("de un familiar o tercero.\n");
+            break;
+        }
+
+        printf("\n\tJefe de familia: \n");
+        printf("\t\tCedula: V-%.0f", jefe.cedula[index]);
+        printf("\tEdad: %d", jefe.edad[index]);
+        printf("\tSexo: %c", jefe.sexo[index]);
+
+        switch (nino.cantidad[index])
+        {
+        case 0:
+            printf("\n\tEste apartamento no tiene niños.");
+            printf("\n\nPresiona ENTER para continuar.");
+            while (getchar() != '\n') // limpiar stdin
+                ;                     // option TWO to clean stdin
+            getchar();
+            break;
+        default:
+            printf("\n\n\tInfantes: %d\n", nino.cantidad[index]);
+            for (int h = 0; h < nino.cantidad[index]; h++)
+            {
+                printf("\n\t\tInfante #%d", h + 1);
+                printf("\n\t\tEdad: %d, Sexo: %c", nino.edad[index][h], nino.sexo[index][h]);
+            }
+            printf("\n\nPresiona ENTER para continuar.");
+            while (getchar() != '\n') // limpiar stdin
+                ;                     // option TWO to clean stdin
+            getchar();
+            break;
+        }
     }
 }
 
 void buscar_jefe()
 {
+    int i = 1;
     system("clear||cls");
     float buscar;
-    printf("Buscar por la c%cdula del Jefe de familia", e);
-    printf("\nIntroduzca la c%cdula que quiere buscar: V-", e);
-    scanf("%.0f", &buscar);
+    printf("Buscar por la cedula del Jefe de familia");
+    printf("\nIntroduzca la cedula que quiere buscar: V-");
+    scanf("%f", &buscar);
 
-    for (int i = 1; i <= size_tt; i++)
+    do
     {
-        printf("%d", i);
-        if (jefe.cedula[i] == buscar)
+        if (jefe.cedula[i] != buscar)
         {
-            for (int q = 1; q <= 2; q++)
+
+            printf("%d = %.0f\n", jefe.cedula[i], buscar);
+            ++i;
+            if (i == 121)
             {
-                for (int w = 1; w <= 10; w++)
-                {
-                    for (int r = 1; e <= 6; e++)
-                    {
-                        if (torres[q][w][r] == i)
-                        {
-                            if (habitabilidad.ocupado[i] == 2) // Desocupado
-                            {
-                                printf("\tEl apartamento #%d, del piso: %d, de la torre: %d\n", w, r, q);
-                                printf("\t\tEst%c desocupado y es ", a);
+                printf("%d = %.0f\n", jefe.cedula[i], buscar);
 
-                                if (habitabilidad.estado[i] == 1)
-                                {
-                                    printf("alquilado.\n");
-                                }
-                                else if (habitabilidad.estado[i] == 2)
-                                {
-                                    printf("propio.\n");
-                                }
-                                else if (habitabilidad.estado[i] == 3)
-                                {
-                                    printf("de un familiar o tercero.\n");
-                                }
-
-                                printf("\t\tEl Jefe de este apartamento es: \n");
-
-                                printf("\n\tJefe de familia: \n");
-                                printf("\t\tC%cdula: V-%.0f", e, jefe.cedula[i]);
-                                printf("\t\tEdad: %d", jefe.edad[i]);
-                                printf("\t\tSexo: %c\n\n", jefe.sexo[i]);
-
-                                if (nino.cantidad[i] == 0) // No hay niños.
-                                {
-                                    printf("\tEl jefe no tiene infantes.\n\n");
-
-                                    printf("\n\tPresione ENTER para continuar");
-                                    while (getchar() != '\n') // limpiar stdin
-                                        ;                     // option TWO to clean stdin
-                                    getchar();
-                                }
-                                else
-                                {
-                                    printf("\tEl jefe tiene %d infantes\n", nino.cantidad[i]);
-                                    for (int t = 0; t < nino.cantidad[i]; t++)
-                                    {
-                                        printf("\t\tInfante #%d", i);
-                                        printf("\t\tEdad: %d, Sexo: %c\n", nino.edad[i][t], nino.sexo[i][t]);
-                                    }
-                                    printf("\n\tPresione ENTER para continuar");
-                                    while (getchar() != '\n') // limpiar stdin
-                                        ;                     // option TWO to clean stdin
-                                    getchar();
-                                }
-                            }
-                            if (habitabilidad.ocupado[i] == 1) // Ocupado
-                            {
-                                printf("\tEl apartamento #%d, del piso: %d, de la torre: %d\n", w, r, q);
-                                printf("\tEst%c ocupado y es ", a);
-
-                                if (habitabilidad.estado[i] == 1)
-                                {
-                                    printf("alquilado.\n");
-                                }
-                                else if (habitabilidad.estado[i] == 2)
-                                {
-                                    printf("propio.\n");
-                                }
-                                else if (habitabilidad.estado[i] == 3)
-                                {
-                                    printf("de un familiar o tercero.\n");
-                                }
-
-                                printf("\n\tJefe de familia: \n");
-                                printf("\t\tC%cdula: V-%.0f", e, jefe.cedula[i]);
-                                printf("\t\tEdad: %d", jefe.edad[i]);
-                                printf("\t\tSexo: %c\n\n", jefe.sexo[i]);
-
-                                if (nino.cantidad[i] == 0) // No hay niños.
-                                {
-                                    printf("\tEl jefe no tiene infantes.\n\n");
-
-                                    printf("\n\tPresione ENTER para continuar");
-                                    while (getchar() != '\n') // limpiar stdin
-                                        ;                     // option TWO to clean stdin
-                                    getchar();
-                                }
-                                else
-                                {
-                                    printf("\tEl jefe tiene %d infantes\n", nino.cantidad[i]);
-                                    for (int t = 0; t < nino.cantidad[i]; t++)
-                                    {
-                                        printf("\t\tInfante #%d", i);
-                                        printf("\t\tEdad: %d, Sexo: %c\n", nino.edad[i][t], nino.sexo[i][t]);
-                                    }
-                                    printf("\n\tPresione ENTER para continuar");
-                                    while (getchar() != '\n') // limpiar stdin
-                                        ;                     // option TWO to clean stdin
-                                    getchar();
-                                }
-                            }
-                        }
-                    }
-                }
+                printf("La cedula introducida no existe.");
+                printf("\n\tPresione ENTER para continuar");
+                while (getchar() != '\n') // limpiar stdin
+                    ;                     // option TWO to clean stdin
+                getchar();
+                reportes();
             }
         }
         else
         {
-            printf("La c%cdula introducida no existe.", e);
-            printf("\n\tPresione ENTER para continuar");
-            while (getchar() != '\n') // limpiar stdin
-                ;                     // option TWO to clean stdin
-            getchar();
             break;
+        }
+    } while (1);
+
+    for (int q = 1; q <= 2; q++)
+    {
+        for (int w = 1; w <= 10; w++)
+        {
+            for (int r = 1; r <= 6; r++)
+            {
+                if (torres[q][w][r] == i)
+                {
+                    if (habitabilidad.ocupado[i] == 1) // Ocupado
+                    {
+                        printf("\tEl apartamento #%d, del piso: %d, de la torre: %d\n", w, r, q);
+                        printf("\tEsta ocupado y es ");
+
+                        switch (habitabilidad.estado[i])
+                        {
+                        case 1:
+                            printf("alquilado.\n");
+                            break;
+                        case 2:
+                            printf("propio.\n");
+                            break;
+                        case 3:
+                            printf("de un familiar o tercero.\n");
+                            break;
+                        }
+
+                        printf("\n\tJefe de familia: \n");
+                        printf("\t\tCedula: V-%.0f", jefe.cedula[i]);
+                        printf("\t\tEdad: %d", jefe.edad[i]);
+                        printf("\t\tSexo: %c\n\n", jefe.sexo[i]);
+
+                        if (nino.cantidad[i] == 0) // No hay niños.
+                        {
+                            printf("\tEl jefe no tiene infantes.\n\n");
+
+                            printf("\n\tPresione ENTER para continuar");
+                            while (getchar() != '\n') // limpiar stdin
+                                ;                     // option TWO to clean stdin
+                            getchar();
+                        }
+                        else
+                        {
+                            printf("\tEl jefe tiene %d infantes\n", nino.cantidad[i]);
+                            for (int t = 0; t < nino.cantidad[i]; t++)
+                            {
+                                printf("\t\tInfante #%d", i);
+                                printf("\t\tEdad: %d, Sexo: %c\n", nino.edad[i][t], nino.sexo[i][t]);
+                            }
+                            printf("\n\tPresione ENTER para continuar");
+                            while (getchar() != '\n') // limpiar stdin
+                                ;                     // option TWO to clean stdin
+                            getchar();
+                        }
+                    }
+
+                    else if (habitabilidad.ocupado[i] == 2) // Desocupado
+                    {
+                        printf("\tEl apartamento #%d, del piso: %d, de la torre: %d\n", w, r, q);
+                        printf("\t\tEsta desocupado y es ");
+
+                        switch (habitabilidad.estado[i])
+                        {
+                        case 1:
+                            printf("alquilado.\n");
+                            break;
+                        case 2:
+                            printf("propio.\n");
+                            break;
+                        case 3:
+                            printf("de un familiar o tercero.\n");
+                            break;
+                        }
+                    }
+                }
+            }
         }
     }
 }
@@ -747,7 +745,7 @@ void caso_especial()
         if (torre < 1 || torre > 2)
         {
 
-            printf("El número de torre es inv%clido, solo hay 2 torres.", a);
+            printf("El número de torre es invalido, solo hay 2 torres.");
             printf("Presiona ENTER para continuar.");
             while (getchar() != '\n') // limpiar stdin
                 ;
@@ -763,7 +761,7 @@ void caso_especial()
         if (piso > 10)
         {
 
-            printf("El número de piso es inv%clido, solo hay 10 pisos.", a);
+            printf("El número de piso es invalido, solo hay 10 pisos.");
             printf("Presiona ENTER para continuar.");
             while (getchar() != '\n') // limpiar stdin
                 ;
@@ -775,7 +773,7 @@ void caso_especial()
     {
         for (int w = 1; w <= piso; w++)
         {
-            for (int r = 1; e <= 6; e++)
+            for (int r = 1; r <= 6; r++)
             {
             }
         }
