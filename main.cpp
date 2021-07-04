@@ -17,6 +17,7 @@ char elle = 164; // Imprime la ñ.
 char inte = 424; // Aunque cree overflow, mostrará el simbolo ?.
 
 //Variables Globales
+
 int torres[2][10][6] = {};                              // Array Inicializado. (Simular torre).
 const int size_tt = (sizeof(torres) / sizeof(int)) + 1; // Logintud del array guardado en una variable constante.
 
@@ -169,20 +170,6 @@ void censo()
 
     int dec, counts = 1, count;
     char otro;
-    for (int q = 1; q <= size_tt; q++)
-    {
-        do
-        {
-            if (jefe.cedula[q] == NULL || jefe.cedula[q] == 0)
-            {
-                break;
-            }
-            else
-            {
-                counts++;
-            }
-        } while (jefe.cedula[q] == NULL);
-    }
 
     for (int i = 1; i <= 2; i++)
     {
@@ -190,6 +177,7 @@ void censo()
         {
             for (int z = 1; z <= 6; z++)
             {
+                torres[i][j][z] = counts;
                 system("clear||cls"); // Limpia pantalla
                 printf("Censo Residencial\n\n");
 
@@ -424,13 +412,13 @@ void v_completa()
 
     // La pocisión de indice para los arrays que contiene los datos.
     system("clear||cls");
-    printf("La inforamción solicitada es la siguiente: \n\n");
+    printf("La inforamci%cn solicitada es la siguiente: \n\n", o);
 
     printf("\tEl apartamento #%d, del piso: %d, de la torre: %d\n", ap, p, t);
     index = t * p * ap;
     if (habitabilidad.ocupado[index] == 0)
     {
-        printf("\t\tEstá desocupado");
+        printf("\t\tEst%c desocupado", a);
         printf("\n\tPresione ENTER para continuar");
 
         while (getchar() != '\n') // limpiar stdin
@@ -468,7 +456,7 @@ void v_completa()
             printf("\tInfantes: %d\n", nino.cantidad[index]);
             for (int i = 0; i < nino.cantidad[index]; i++)
             {
-                printf("\t\tInfante #%d", i);
+                printf("\t\tInfante #%d", i + 1);
                 printf("\t\tEdad: %d, Sexo: %c", nino.edad[index][i], nino.sexo[index][i]);
             }
         }
@@ -480,6 +468,91 @@ void v_completa()
 
 void buscar_jefe()
 {
+    system("clear||cls");
+    int buscar;
+    printf("Buscar por la c%cdula del Jefe de familia", e);
+
+    printf("\nIntroduzca la c%cdula que quiere buscar: ", e);
+    scanf("%d", &buscar);
+
+    for (int i = 1; i <= size_tt; i++)
+    {
+        if (buscar == jefe.cedula[i])
+        {
+            for (int q = 1; q <= 2; q++)
+            {
+                for (int w = 1; w <= 10; w++)
+                {
+                    for (int r = 1; e <= 6; e++)
+                    {
+                        if (torres[q][w][r] == i)
+                        {
+                            printf("\tEl apartamento #%d, del piso: %d, de la torre: %d\n", w, r, q);
+
+                            if (habitabilidad.ocupado[i] == 0)
+                            {
+                                printf("\t\tEst%c desocupado", a);
+                                printf("\n\tPresione ENTER para continuar");
+
+                                while (getchar() != '\n') // limpiar stdin
+                                    ;                     // option TWO to clean stdin
+                                getchar();
+                            }
+                            else
+                            {
+                                printf("\tEst%c ocupado y es ", a);
+
+                                if (habitabilidad.estado[i] == 1)
+                                {
+                                    printf("alquilado.\n");
+                                }
+                                else if (habitabilidad.estado[i] == 2)
+                                {
+                                    printf("propio.\n");
+                                }
+                                else if (habitabilidad.estado[i] == 3)
+                                {
+                                    printf("de un familiar o tercero.\n");
+                                }
+
+                                printf("\n\tJefe de familia: \n");
+                                printf("\t\tC%cdula: V-%.0f", e, jefe.cedula[i]);
+                                printf("\t\tEdad: %d", jefe.edad[i]);
+                                printf("\t\tSexo: %c\n\n", jefe.sexo[i]);
+
+                                if (nino.cantidad[i] == 0)
+                                {
+                                    printf("\tEste apartamento no tiene niños.");
+                                }
+                                else
+                                {
+                                    printf("\tInfantes: %d\n", nino.cantidad[i]);
+                                    for (int t = 0; t < nino.cantidad[i]; t++)
+                                    {
+                                        printf("\t\tInfante #%d", i);
+                                        printf("\t\tEdad: %d, Sexo: %c\n", nino.edad[i][t], nino.sexo[i][t]);
+                                    }
+                                }
+
+                                while (getchar() != '\n') // limpiar stdin
+                                    ;                     // option TWO to clean stdin
+                                getchar();
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            printf("La c%cdula introducida no existe.", e);
+            while (getchar() != '\n') // limpiar stdin
+                ;                     // option TWO to clean stdin
+            getchar();
+            break;
+        }
+    }
 }
 
 void rl_porcentaje()
