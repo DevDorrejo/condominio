@@ -187,7 +187,7 @@ void censo()
                 // Encuesta Cedula ===START===
                 do // Validar datos cuando el usuario lo ingresa.
                 {
-                    printf("\n\tDatos del jefe de familia: \n");
+                    printf("Datos del jefe de familia: \n");
                     printf("\t\tCedula: V-");
                     scanf("%f", &jefe.cedula[counts]);
 
@@ -333,17 +333,16 @@ void censo()
                     }
                 } while (habitabilidad.ocupado[counts] > 1 && habitabilidad.ocupado[counts] < 2);
                 // Apartamento estados (Ocupado o Desocupado) ====END====
-
+                printf("\nedesea introducir otro registro? (s/n): ");
+                scanf(" %c", &otro);
+                if (otro == 'n')
+                {
+                    t = p = 1000;
+                    break;
+                }
                 // idea de salir del bucle.
             }
-            printf("\nedesea introducir otro registro? (s/n): ");
-            scanf(" %c", &otro);
-            if (otro == 'n')
-            {
-                t = p = 1000;
-                break;
-            }
-        }
+               }
     }
     menu();
 }
