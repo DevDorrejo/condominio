@@ -484,7 +484,7 @@ void buscar_jefe()
         printf("\t\tCedula: V-%.0f", jefe.cedula[index]);
         printf("\tEdad: %d", jefe.edad[index]);
         printf("\tSexo: %c", jefe.sexo[index]);
-        
+
         switch (nino.cantidad[index])
         {
         case 0:
@@ -707,7 +707,7 @@ void valor_modal()
     // Calcular la moda
     system("clear||cls");
     printf("Obtención del valor modal por edad de los jefes de familia por torres.");
-    int torre = size_tt / 2, m[torres] = {0}, q[torres] = {0};
+    int m[torres] = {0}, q[torres] = {0};
 
     for (int t = 0; t < torres; t++)
     {
@@ -717,15 +717,15 @@ void valor_modal()
         {
         case 0:
             printf("\n\t\tEdad de los jefes:\n");
-            for (int a = 0; a < torre; a++)
+            for (int a = 0; a < size_tt / 2; a++)
             {
                 printf("%d, ", jefe.edad[a]);
             }
 
-            for (int i = 0; i < torre; i++)
+            for (int i = 0; i < size_tt / 2; i++)
             {
                 int count = 0;
-                for (int j = 0; j < torre; j++)
+                for (int j = 0; j < size_tt / 2; j++)
                     if (jefe.edad[j] == jefe.edad[i])
                         ++count;
 
@@ -739,15 +739,15 @@ void valor_modal()
 
         case 1:
             printf("\n\t\tEdad de los jefes:\n");
-            for (int a = size_tt / 2; a < torre * 2; a++)
+            for (int a = size_tt / 2; a < size_tt; a++)
             {
                 printf("%d, ", jefe.edad[a]);
             }
 
-            for (int i = 60; i < torre * 2; i++)
+            for (int i = size_tt / 2; i < size_tt; i++)
             {
                 int count = 0;
-                for (int j = size_tt / 2; j < torre * 2; j++)
+                for (int j = size_tt / 2; j < size_tt; j++)
                     if (jefe.edad[j] == jefe.edad[i])
                         ++count;
 
@@ -770,20 +770,17 @@ void valor_modal()
 
 void estadistica()
 {
-    int o, d;
-    float op, dp; // Estados de Ocupado y Desocupado.
-    int ocupado;
+    float op, dp, o, d; // Estados de Ocupado y Desocupado.
     system("clear||cls");
     printf("Estadistica de habitabilidad del Conjunto Residencial.");
-
-    for (int q = 0; q < 2; q++)
+    for (int q = 0; q < torres; q++)
     {
-        // switch (q)
-        // {
-        // case 0:
-        for (int w = 0; w < 10; w++)
+        switch (q)
         {
-            for (int r = 0; r < 6; r++)
+        case 0:
+            o = d = 0;
+            op = dp = 0;
+            for (int r = 0; r < size_tt / 2; r++)
             {
 
                 switch (habitabilidad.ocupado[r])
@@ -795,25 +792,70 @@ void estadistica()
                     d++;
                     break;
                 }
-                system("clear||cls");
-                printf("Torre #$d", q + 1);
-
-                printf("Hay %d Apartamentos Ocupados y %d Apartamentos Desocupados.\n", o, d);
-                printf("\tLa relacion porcentual es: \n");
-                op = (float)o / 120 * 100;
-                printf("\t%.2f% Ocupados.", op);
-                dp = (float)d / 120 * 100;
-                printf("\t%.2f% Desocupados.\n", dp);
             }
+            break;
+        case 1:
+            o = d = 0;
+            op = dp = 0;
+            for (int r = size_tt / 2; r < size_tt; r++)
+            {
+                switch (habitabilidad.ocupado[r])
+                {
+                case 1:
+                    o++;
+                    break;
+                case 2:
+                    d++;
+                    break;
+                }
+            }
+            break;
+        }
+        printf("\nTorre #%d\n", q + 1);
+        if (o > size_tt / 2 || d > size_tt / 2)
+        {
+            truncf(o /= 2);
+            truncf(d /= 2);
+        }
+        printf("Hay %.0f Apartamentos Ocupados y %.0f Apartamentos Desocupados.\n", o, d);
+        printf("\tLa relacion porcentual es: \n");
+        op = o / size_tt * 100;
+        printf("\t%.2f% Ocupados.", op);
+        dp = d / size_tt * 100;
+        printf("\t%.2f% Desocupados.\n", dp);
+    }
+
+    printf("\nRelacion conceptual del conjunto residencial.\n");
+    o = d = 0;
+    op = dp = 0;
+
+    for (int r = 0; r < size_tt; r++)
+    {
+
+        switch (habitabilidad.ocupado[r])
+        {
+
+        case 1:
+            o++;
+            break;
+        case 2:
+            d++;
+            break;
         }
     }
+    printf("Hay %.0f Apartamentos Ocupados y %.0f Apartamentos Desocupados.\n", o, d);
+    printf("\tLa relacion porcentual es: \n");
+    op = o / size_tt * 100;
+    printf("\t%.2f% Ocupados.", op);
+    dp = d / size_tt * 100;
+    printf("\t%.2f% Desocupados.\n", dp);
     printf("\n\tPresione ENTER para continuar");
     while (getchar() != '\n') // limpiar stdin
         ;                     // option TWO to clean stdin
-    getchar();
+                              //    getchar();
     reportes();
 }
-// }
+
 int digits(float value)
 {
     return (log10(value) + 1);
